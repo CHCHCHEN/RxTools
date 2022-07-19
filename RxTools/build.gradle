@@ -47,7 +47,7 @@ android {
 dependencies {
 
     compileOnly 'androidx.core:core-ktx:1.7.0'
-    compileOnly 'androidx.appcompat:appcompat:1.3.0'
+    compileOnly 'androidx.appcompat:appcompat:1.2.0'
     compileOnly 'com.google.android.material:material:1.4.0'
     compileOnly 'junit:junit:4.13.2'
     compileOnly 'androidx.test.ext:junit:1.1.3'
@@ -68,4 +68,30 @@ dependencies {
     //noinspection NotInterpolated
     //implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.10'
     //implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10'
+
+    //沉浸式
+    compileOnly 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+
+    //recyclerview包
+    compileOnly 'androidx.recyclerview:recyclerview:1.1.0'
+    compileOnly 'androidx.annotation:annotation:1.1.0'
+    compileOnly 'androidx.constraintlayout:constraintlayout:2.0.1'
+    //流式布局
+    compileOnly 'com.google.android:flexbox:0.3.2'
+    //沉浸式
+    compileOnly 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+
+    //Log日志格式美化包
+    compileOnly 'com.orhanobut:logger:2.2.0'
+
+    //压缩与加密
+    implementation 'net.lingala.zip4j:zip4j:1.3.2'
+
+    compileOnly 'org.greenrobot:greendao:3.2.2'
+    compileOnly 'androidx.exifinterface:exifinterface:1.3.0'
+    compileOnly 'com.google.guava:guava:27.1-jre'
+
+
+    implementation 'org.apache.commons:commons-lang3:3.5'
+    implementation 'joda-time:joda-time:2.9.9'
 }

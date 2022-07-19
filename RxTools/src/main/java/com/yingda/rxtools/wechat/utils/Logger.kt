@@ -1,4 +1,4 @@
-package com.hansomat.appkit.wechat.utils
+package com.yingda.rxtools.wechat.utils
 
 /**
  * author: chen
