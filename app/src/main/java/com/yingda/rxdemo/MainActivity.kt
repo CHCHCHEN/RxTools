@@ -3,6 +3,7 @@ package com.yingda.rxdemo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.yingda.rxdemo.databinding.ActivityMainBinding
+import com.yingda.rxtools.GT
 import com.yingda.rxtools.binding.viewbind
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBingding.apply {
+            GT.err("123")
         }
     }
 }
