@@ -32,6 +32,10 @@
 -keep public class * extends com.yingda.rxtools.gsls.GT { *; }
 -keep class com.yingda.rxtools.gsls.GT$* {*;}
 
+#微信
+-dontwarn com.yingda.rxtools.wechat.**
+-keep class com.yingda.rxtools.wechat.** { *; }
+
 # Gson
 -keep class com.google.gson.stream.** { *; }
 -keepattributes EnclosingMethod
