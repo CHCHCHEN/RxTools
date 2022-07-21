@@ -1,4 +1,4 @@
-package com.yingda.rxtools;
+package com.yingda.rxtools.gsls;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

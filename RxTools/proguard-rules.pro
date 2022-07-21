@@ -27,10 +27,10 @@
 }
 
 #GT
--dontwarn com.gsls.gt.**
--keep public class com.gsls.gt.GT { *; }
--keep public class * extends com.gsls.gt.GT { *; }
--keep class com.gsls.gt.GT$* {*;}
+-dontwarn com.yingda.rxtools.gsls.**
+-keep public class com.yingda.rxtools.gsls.GT { *; }
+-keep public class * extends com.yingda.rxtools.gsls.GT { *; }
+-keep class com.yingda.rxtools.gsls.GT$* {*;}
 
 # Gson
 -keep class com.google.gson.stream.** { *; }
@@ -38,6 +38,5 @@
 -keep class org.xz_sale.entity.**{*;}
 -keep class com.google.gson.** {*;}
 -keep class com.google.**{*;}
--keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.stream.** { *; }
 -keep class com.google.gson.examples.android.model.** { *; }

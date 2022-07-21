@@ -3,7 +3,7 @@ package com.yingda.rxdemo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.yingda.rxdemo.databinding.ActivityMainBinding
-import com.yingda.rxtools.GT
+import com.yingda.rxtools.gsls.GT
 import com.yingda.rxtools.binding.viewbind
 
 class MainActivity : AppCompatActivity() {
