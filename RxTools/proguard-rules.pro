@@ -26,6 +26,8 @@
     public static ** inflate(***);
 }
 
+-keep class com.yingda.rxtools.** { *.; }
+
 #GT
 -dontwarn com.yingda.rxtools.gsls.**
 -keep public class com.yingda.rxtools.gsls.GT { *; }

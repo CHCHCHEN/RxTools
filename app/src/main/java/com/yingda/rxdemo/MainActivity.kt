@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.yingda.rxdemo.databinding.ActivityMainBinding
 import com.yingda.rxtools.gsls.GT
 import com.yingda.rxtools.binding.viewbind
+import com.yingda.rxtools.log.ViseLog
 
 class MainActivity : AppCompatActivity() {
     
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBingding.apply {
-            GT.err("123")
+            ViseLog.i(mBingding)
         }
     }
 }
