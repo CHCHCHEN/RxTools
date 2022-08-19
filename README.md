@@ -17,15 +17,13 @@ allprojects {
 ```gradle
 dependencies {
   //基础工具库
-  implementation 'com.github.CHCHCHEN:RxTools:1.1.7'
+  implementation 'com.github.CHCHCHEN:RxTools:1.1.8'
 }
 ```
 
 RxTools 最新版本 [![](https://jitpack.io/v/CHCHCHEN/RxTools.svg)](https://jitpack.io/#CHCHCHEN/RxTools)
 
-## 简单的 API
-
-Binding 统一封装了 DataBinding 和 ViewBinding， 提供了简单的 API 
+## Binding
 
 **ViewBinding 中的使用**
 
