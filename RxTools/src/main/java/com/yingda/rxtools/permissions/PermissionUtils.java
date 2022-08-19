@@ -1,4 +1,4 @@
-package com.hjq.permissions;
+package com.yingda.rxtools.permissions;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -32,14 +32,15 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/XXPermissions
- *    time   : 2018/06/15
- *    desc   : 权限相关工具类
+ * author: chen
+ * data: 2022/8/18
+ * des: 权限相关工具类
  */
 final class PermissionUtils {
 
-    /** Handler 对象 */
+    /**
+     * Handler 对象
+     */
     private static final Handler HANDLER = new Handler(Looper.getMainLooper());
 
     /**
@@ -62,7 +63,7 @@ final class PermissionUtils {
     /**
      * 判断某个危险权限是否授予了
      */
-    @RequiresApi(api = AndroidVersion.ANDROID_6)
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public static boolean checkSelfPermission(Context context, String permission) {
         return context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
     }
@@ -70,13 +71,13 @@ final class PermissionUtils {
     /**
      * 解决 Android 12 调用 shouldShowRequestPermissionRationale 出现内存泄漏的问题
      * Android 12L 和 Android 13 版本经过测试不会出现这个问题，证明谷歌已经修复了这个问题
-     *
+     * <p>
      * issues 地址：https://github.com/getActivity/XXPermissions/issues/133
      */
-    @RequiresApi(api = AndroidVersion.ANDROID_6)
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressWarnings({"JavaReflectionMemberAccess", "ConstantConditions"})
     public static boolean shouldShowRequestPermissionRationale(Activity activity, String permission) {
-        if (AndroidVersion.getAndroidVersionCode() == AndroidVersion.ANDROID_12) {
+        if (AndroidVersion.Companion.getAndroidVersionCode() == AndroidVersion.Companion.getANDROID_12()) {
             try {
                 PackageManager packageManager = activity.getApplication().getPackageManager();
                 Method method = PackageManager.class.getMethod("shouldShowRequestPermissionRationale", String.class);
@@ -100,7 +101,7 @@ final class PermissionUtils {
      */
     static void postActivityResult(List<String> permissions, Runnable runnable) {
         long delayMillis;
-        if (AndroidVersion.isAndroid11()) {
+        if (AndroidVersion.Companion.isAndroid11()) {
             delayMillis = 200;
         } else {
             delayMillis = 300;
@@ -109,7 +110,7 @@ final class PermissionUtils {
         String manufacturer = Build.MANUFACTURER.toLowerCase();
         if (manufacturer.contains("huawei")) {
             // 需要加长时间等待，不然某些华为机型授权了但是获取不到权限
-            if (AndroidVersion.isAndroid8()) {
+            if (AndroidVersion.Companion.isAndroid8()) {
                 delayMillis = 300;
             } else {
                 delayMillis = 500;
@@ -119,7 +120,7 @@ final class PermissionUtils {
             // 因为在 Android 10 的时候，这个特殊权限弹出的页面小米还是用谷歌原生的
             // 然而在 Android 11 之后的，这个权限页面被小米改成了自己定制化的页面
             // 测试了原生的模拟器和 vivo 云测并发现没有这个问题，所以断定这个 Bug 就是小米特有的
-            if (AndroidVersion.isAndroid11() &&
+            if (AndroidVersion.Companion.isAndroid11() &&
                     PermissionUtils.containsPermission(permissions, Permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)) {
                 delayMillis = 1000;
             }
@@ -209,7 +210,7 @@ final class PermissionUtils {
                 recheck = true;
             }
 
-            if (!AndroidVersion.isAndroid13() &&
+            if (!AndroidVersion.Companion.isAndroid13() &&
                     (PermissionUtils.equalsPermission(permission, Permission.POST_NOTIFICATIONS) ||
                             PermissionUtils.equalsPermission(permission, Permission.NEARBY_WIFI_DEVICES) ||
                             PermissionUtils.equalsPermission(permission, Permission.BODY_SENSORS_BACKGROUND) ||
@@ -220,7 +221,7 @@ final class PermissionUtils {
             }
 
             // 重新检查 Android 12 的三个新权限
-            if (!AndroidVersion.isAndroid12() &&
+            if (!AndroidVersion.Companion.isAndroid12() &&
                     (PermissionUtils.equalsPermission(permission, Permission.BLUETOOTH_SCAN) ||
                             PermissionUtils.equalsPermission(permission, Permission.BLUETOOTH_CONNECT) ||
                             PermissionUtils.equalsPermission(permission, Permission.BLUETOOTH_ADVERTISE))) {
@@ -228,7 +229,7 @@ final class PermissionUtils {
             }
 
             // 重新检查 Android 10.0 的三个新权限
-            if (!AndroidVersion.isAndroid10() &&
+            if (!AndroidVersion.Companion.isAndroid10() &&
                     (PermissionUtils.equalsPermission(permission, Permission.ACCESS_BACKGROUND_LOCATION) ||
                             PermissionUtils.equalsPermission(permission, Permission.ACTIVITY_RECOGNITION) ||
                             PermissionUtils.equalsPermission(permission, Permission.ACCESS_MEDIA_LOCATION))) {
@@ -236,13 +237,13 @@ final class PermissionUtils {
             }
 
             // 重新检查 Android 9.0 的一个新权限
-            if (!AndroidVersion.isAndroid9() &&
+            if (!AndroidVersion.Companion.isAndroid9() &&
                     PermissionUtils.equalsPermission(permission, Permission.ACCEPT_HANDOVER)) {
                 recheck = true;
             }
 
             // 重新检查 Android 8.0 的两个新权限
-            if (!AndroidVersion.isAndroid8() &&
+            if (!AndroidVersion.Companion.isAndroid8() &&
                     (PermissionUtils.equalsPermission(permission, Permission.ANSWER_PHONE_CALLS) ||
                             PermissionUtils.equalsPermission(permission, Permission.READ_PHONE_NUMBERS))) {
                 recheck = true;
@@ -257,7 +258,7 @@ final class PermissionUtils {
 
     /**
      * 将数组转换成 ArrayList
-     *
+     * <p>
      * 这里解释一下为什么不用 Arrays.asList
      * 第一是返回的类型不是 java.util.ArrayList 而是 java.util.Arrays.ArrayList
      * 第二是返回的 ArrayList 对象是只读的，也就是不能添加任何元素，否则会抛异常
@@ -293,7 +294,7 @@ final class PermissionUtils {
         do {
             if (context instanceof Activity) {
                 return (Activity) context;
-            } else if (context instanceof ContextWrapper){
+            } else if (context instanceof ContextWrapper) {
                 context = ((ContextWrapper) context).getBaseContext();
             } else {
                 return null;
@@ -311,9 +312,9 @@ final class PermissionUtils {
         AssetManager assets = context.getAssets();
         Integer cookie;
         try {
-            if (AndroidVersion.getTargetSdkVersionCode(context) >= AndroidVersion.ANDROID_9 &&
-                    AndroidVersion.getAndroidVersionCode() >= AndroidVersion.ANDROID_9 &&
-                    AndroidVersion.getAndroidVersionCode() < AndroidVersion.ANDROID_11) {
+            if (AndroidVersion.Companion.getTargetSdkVersionCode(context) >= AndroidVersion.Companion.getANDROID_9() &&
+                    AndroidVersion.Companion.getAndroidVersionCode() >= AndroidVersion.Companion.getANDROID_9() &&
+                    AndroidVersion.Companion.getAndroidVersionCode() < AndroidVersion.Companion.getANDROID_11()) {
                 // 反射套娃操作：实测这种方式只在 Android 9.0 和 10.0 有效果，在 Android 11 上面就失效了
                 Method metaGetDeclaredMethod = Class.class.getDeclaredMethod(
                         "getDeclaredMethod", String.class, Class[].class);
@@ -446,7 +447,7 @@ final class PermissionUtils {
     static boolean isActivityReverse(Activity activity) {
         // 获取 Activity 旋转的角度
         int activityRotation;
-        if (AndroidVersion.isAndroid11()) {
+        if (AndroidVersion.Companion.isAndroid11()) {
             activityRotation = activity.getDisplay().getRotation();
         } else {
             activityRotation = activity.getWindowManager().getDefaultDisplay().getRotation();
@@ -495,7 +496,7 @@ final class PermissionUtils {
     /**
      * 根据传入的权限自动选择最合适的权限设置页
      *
-     * @param permissions                 请求失败的权限
+     * @param permissions 请求失败的权限
      */
     static Intent getSmartPermissionIntent(Context context, List<String> permissions) {
         // 如果失败的权限里面不包含特殊权限
@@ -509,14 +510,14 @@ final class PermissionUtils {
                 // 如果当前只有一个权限被拒绝了
                 return PermissionApi.getPermissionIntent(context, permissions.get(0));
             case 2:
-                if (!AndroidVersion.isAndroid13() &&
+                if (!AndroidVersion.Companion.isAndroid13() &&
                         PermissionUtils.containsPermission(permissions, Permission.NOTIFICATION_SERVICE) &&
                         PermissionUtils.containsPermission(permissions, Permission.POST_NOTIFICATIONS)) {
                     return PermissionApi.getPermissionIntent(context, Permission.NOTIFICATION_SERVICE);
                 }
                 break;
             case 3:
-                if (AndroidVersion.isAndroid11() &&
+                if (AndroidVersion.Companion.isAndroid11() &&
                         PermissionUtils.containsPermission(permissions, Permission.MANAGE_EXTERNAL_STORAGE) &&
                         PermissionUtils.containsPermission(permissions, Permission.READ_EXTERNAL_STORAGE) &&
                         PermissionUtils.containsPermission(permissions, Permission.WRITE_EXTERNAL_STORAGE)) {

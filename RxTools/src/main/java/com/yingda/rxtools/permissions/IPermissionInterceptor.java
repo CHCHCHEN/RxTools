@@ -1,4 +1,4 @@
-package com.hjq.permissions;
+package com.yingda.rxtools.permissions;
 
 import android.app.Activity;
 
@@ -6,11 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/XXPermissions
- *    time   : 2020/12/26
- *    desc   : 权限请求拦截器
- */
+ * author: chen
+ * data: 2022/8/18
+ * des: 权限请求拦截器
+*/
 public interface IPermissionInterceptor {
 
     /**

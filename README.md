@@ -131,6 +131,46 @@ WeChatClient.authLogin(`OnWeChatAuthLoginListener`)
 WeChatClient.payment(`IPaymentParams` ,`OnWeChatPaymentListener`)
 ```
 
+## 权限
+
+#### 分区存储
+
+*适配Android 10 分区存储特性
+``` xml
+<manifest
+    </application>
+        <!-- 表示当前项目已经适配了分区存储特性 -->
+        <meta-data
+            android:name="ScopedStorage"
+            android:value="true" />
+    </application>
+</manifest>
+```
+*使用
+
+``` kotlin
+RxPermissions.with(this@MainActivity)
+            //.permission(Permission.MANAGE_EXTERNAL_STORAGE)
+            //.permission(Permission.READ_EXTERNAL_STORAGE)
+            //.permission(Permission.WRITE_EXTERNAL_STORAGE)
+            .permission(Permission.READ_MEDIA_AUDIO)
+            .permission(Permission.READ_MEDIA_VIDEO)
+            .permission(Permission.READ_MEDIA_IMAGES)
+            .request(object : OnPermissionCallback {
+                override fun onGranted(permissions: List<String?>?, all: Boolean) {
+                }
+                
+                override fun onDenied(permissions: List<String?>?, never: Boolean) {
+                    if (never) {
+                    
+                    } else {
+                        GT.toast_time(this@MainActivity, "被永久拒绝授权，请手动授予权限", 5000)
+                        RxPermissions.startPermissionActivity(this@MainActivity, permissions)
+                    }
+                }
+                
+            })
+```
 
 
 ## 混淆

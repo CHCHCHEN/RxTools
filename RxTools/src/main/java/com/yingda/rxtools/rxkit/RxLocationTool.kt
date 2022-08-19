@@ -170,12 +170,10 @@ object RxLocationTool {
      */
     @JvmStatic
     fun getAddress(context: Context?, latitude: Double, longitude: Double): Address? {
-        val geocoder = Geocoder(context, Locale.getDefault())
+        val geocoder = Geocoder(context!!, Locale.getDefault())
         try {
             val addresses = geocoder.getFromLocation(latitude, longitude, 1)
-            if (addresses.size > 0) {
-                return addresses[0]
-            }
+            if (addresses!!.size > 0) return addresses[0]
         } catch (e: IOException) {
             e.printStackTrace()
         }

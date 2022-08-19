@@ -1,4 +1,4 @@
-package com.hjq.permissions;
+package com.yingda.rxtools.permissions;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -9,15 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/XXPermissions
- *    time   : 2022/01/17
- *    desc   : 权限页跳转 Fragment
+ * author: chen
+ * data: 2022/8/18
+ * des: 权限页跳转 Fragment
  */
 @SuppressWarnings("deprecation")
 public final class PermissionPageFragment extends Fragment implements Runnable {
 
-    /** 请求的权限组 */
+    /**
+     * 请求的权限组
+     */
     private static final String REQUEST_PERMISSIONS = "request_permissions";
 
     /**
@@ -38,13 +39,19 @@ public final class PermissionPageFragment extends Fragment implements Runnable {
         fragment.attachActivity(activity);
     }
 
-    /** 权限回调对象 */
+    /**
+     * 权限回调对象
+     */
     private OnPermissionPageCallback mCallBack;
 
-    /** 权限申请标记 */
+    /**
+     * 权限申请标记
+     */
     private boolean mRequestFlag;
 
-    /** 是否申请了权限 */
+    /**
+     * 是否申请了权限
+     */
     private boolean mStartActivityFlag;
 
     /**
@@ -83,7 +90,7 @@ public final class PermissionPageFragment extends Fragment implements Runnable {
             return;
         }
         List<String> permissions = arguments.getStringArrayList(REQUEST_PERMISSIONS);
-        startActivityForResult(PermissionUtils.getSmartPermissionIntent(getActivity(), permissions), XXPermissions.REQUEST_CODE);
+        startActivityForResult(PermissionUtils.getSmartPermissionIntent(getActivity(), permissions), RxPermissions.REQUEST_CODE);
     }
 
     /**
@@ -102,7 +109,7 @@ public final class PermissionPageFragment extends Fragment implements Runnable {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode != XXPermissions.REQUEST_CODE) {
+        if (requestCode != RxPermissions.REQUEST_CODE) {
             return;
         }
 

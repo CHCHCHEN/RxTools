@@ -1,16 +1,16 @@
-package com.hjq.permissions;
+package com.yingda.rxtools.permissions;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/XXPermissions
- *    time   : 2022/07/03
- *    desc   : Android 9.0 权限委托实现
- */
-@RequiresApi(api = AndroidVersion.ANDROID_9)
+ * author: chen
+ * data: 2022/8/18
+ * des: Android 9.0 权限委托实现
+*/
+@RequiresApi(api = Build.VERSION_CODES.P)
 class PermissionDelegateImplV28 extends PermissionDelegateImplV26 {
 
    @Override

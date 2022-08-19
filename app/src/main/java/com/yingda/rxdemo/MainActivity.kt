@@ -4,13 +4,18 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.yingda.rxdemo.databinding.ActivityMainBinding
 import com.yingda.rxtools.binding.viewbind
+import com.yingda.rxtools.gsls.GT
 import com.yingda.rxtools.log.ViseLog
+import com.yingda.rxtools.permissions.OnPermissionCallback
+import com.yingda.rxtools.permissions.Permission
+import com.yingda.rxtools.permissions.RxPermissions
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
     
     //数据层
     private val viewmodel: MainViewModel by viewModel()
+    
     //绑定视图
     private val mBingding: ActivityMainBinding by viewbind()
     
@@ -23,7 +28,29 @@ class MainActivity : AppCompatActivity() {
             viewmodel.apply {
             }
         }
-    
+        
         mBingding.tvOne.text = "ViewBingding"
+        
+        RxPermissions.with(this@MainActivity)
+            //.permission(Permission.MANAGE_EXTERNAL_STORAGE)
+            //.permission(Permission.READ_EXTERNAL_STORAGE)
+            //.permission(Permission.WRITE_EXTERNAL_STORAGE)
+            .permission(Permission.READ_MEDIA_AUDIO)
+            .permission(Permission.READ_MEDIA_VIDEO)
+            .permission(Permission.READ_MEDIA_IMAGES)
+            .request(object : OnPermissionCallback {
+                override fun onGranted(permissions: List<String?>?, all: Boolean) {
+                }
+                
+                override fun onDenied(permissions: List<String?>?, never: Boolean) {
+                    if (never) {
+                    
+                    } else {
+                        GT.toast_time(this@MainActivity, "被永久拒绝授权，请手动授予权限", 5000)
+                        RxPermissions.startPermissionActivity(this@MainActivity, permissions)
+                    }
+                }
+                
+            })
     }
 }

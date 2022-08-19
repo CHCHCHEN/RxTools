@@ -1,4 +1,4 @@
-package com.hjq.permissions;
+package com.yingda.rxtools.permissions;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,29 +9,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/XXPermissions
- *    time   : 2021/12/31
- *    desc   : 权限判断类
- */
+ * author: chen
+ * data: 2022/8/18
+ * des: 权限判断类
+*/
 final class PermissionApi {
 
     private static final PermissionDelegate DELEGATE;
 
     static {
-        if (AndroidVersion.isAndroid13()) {
+        if (AndroidVersion.Companion.isAndroid13()) {
             DELEGATE = new PermissionDelegateImplV33();
-        } else if (AndroidVersion.isAndroid12()) {
+        } else if (AndroidVersion.Companion.isAndroid12()) {
             DELEGATE = new PermissionDelegateImplV31();
-        } else if (AndroidVersion.isAndroid11()) {
+        } else if (AndroidVersion.Companion.isAndroid11()) {
             DELEGATE = new PermissionDelegateImplV30();
-        } else if (AndroidVersion.isAndroid10()) {
+        } else if (AndroidVersion.Companion.isAndroid10()) {
             DELEGATE = new PermissionDelegateImplV29();
-        } else if (AndroidVersion.isAndroid9()) {
+        } else if (AndroidVersion.Companion.isAndroid9()) {
             DELEGATE = new PermissionDelegateImplV28();
-        } else if (AndroidVersion.isAndroid8()) {
+        } else if (AndroidVersion.Companion.isAndroid8()) {
             DELEGATE = new PermissionDelegateImplV26();
-        } else if (AndroidVersion.isAndroid6()) {
+        } else if (AndroidVersion.Companion.isAndroid6()) {
             DELEGATE = new PermissionDelegateImplV23();
         } else {
             DELEGATE = new PermissionDelegateImplV14();

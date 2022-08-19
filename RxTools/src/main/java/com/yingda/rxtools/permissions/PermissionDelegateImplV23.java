@@ -1,9 +1,10 @@
-package com.hjq.permissions;
+package com.yingda.rxtools.permissions;
 
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
@@ -14,7 +15,7 @@ import android.support.annotation.RequiresApi;
  *    time   : 2022/06/11
  *    desc   : Android 6.0 权限委托实现
  */
-@RequiresApi(api = AndroidVersion.ANDROID_6)
+@RequiresApi(api = Build.VERSION_CODES.M)
 class PermissionDelegateImplV23 extends PermissionDelegateImplV14 {
 
    @Override
@@ -42,7 +43,7 @@ class PermissionDelegateImplV23 extends PermissionDelegateImplV14 {
             return isGrantedIgnoreBatteryPermission(context);
          }
 
-         if (!AndroidVersion.isAndroid11()) {
+         if (!AndroidVersion.Companion.isAndroid11()) {
             // 检测管理所有文件权限
             if (PermissionUtils.equalsPermission(permission, Permission.MANAGE_EXTERNAL_STORAGE)) {
                return PermissionUtils.checkSelfPermission(context, Permission.READ_EXTERNAL_STORAGE) &&
@@ -56,7 +57,7 @@ class PermissionDelegateImplV23 extends PermissionDelegateImplV14 {
       /* ---------------------------------------------------------------------------------------- */
 
       // 向下兼容 Android 13 新权限
-      if (!AndroidVersion.isAndroid13()) {
+      if (!AndroidVersion.Companion.isAndroid13()) {
 
          if (PermissionUtils.equalsPermission(permission, Permission.POST_NOTIFICATIONS)) {
             // 交给父类处理
@@ -81,7 +82,7 @@ class PermissionDelegateImplV23 extends PermissionDelegateImplV14 {
       /* ---------------------------------------------------------------------------------------- */
 
       // 向下兼容 Android 12 新权限
-      if (!AndroidVersion.isAndroid12()) {
+      if (!AndroidVersion.Companion.isAndroid12()) {
 
          if (PermissionUtils.equalsPermission(permission, Permission.BLUETOOTH_SCAN)) {
             return PermissionUtils.checkSelfPermission(context, Permission.ACCESS_FINE_LOCATION);
@@ -96,7 +97,7 @@ class PermissionDelegateImplV23 extends PermissionDelegateImplV14 {
       /* ---------------------------------------------------------------------------------------- */
 
       // 向下兼容 Android 10 新权限
-      if (!AndroidVersion.isAndroid10()) {
+      if (!AndroidVersion.Companion.isAndroid10()) {
 
          if (PermissionUtils.equalsPermission(permission, Permission.ACCESS_BACKGROUND_LOCATION)) {
             return PermissionUtils.checkSelfPermission(context, Permission.ACCESS_FINE_LOCATION);
@@ -114,7 +115,7 @@ class PermissionDelegateImplV23 extends PermissionDelegateImplV14 {
       /* ---------------------------------------------------------------------------------------- */
 
       // 向下兼容 Android 9.0 新权限
-      if (!AndroidVersion.isAndroid9()) {
+      if (!AndroidVersion.Companion.isAndroid9()) {
 
          if (PermissionUtils.equalsPermission(permission, Permission.ACCEPT_HANDOVER)) {
             return true;
@@ -124,7 +125,7 @@ class PermissionDelegateImplV23 extends PermissionDelegateImplV14 {
       /* ---------------------------------------------------------------------------------------- */
 
       // 向下兼容 Android 8.0 新权限
-      if (!AndroidVersion.isAndroid8()) {
+      if (!AndroidVersion.Companion.isAndroid8()) {
 
          if (PermissionUtils.equalsPermission(permission, Permission.ANSWER_PHONE_CALLS)) {
             return true;
@@ -150,7 +151,7 @@ class PermissionDelegateImplV23 extends PermissionDelegateImplV14 {
       /* ---------------------------------------------------------------------------------------- */
 
       // 向下兼容 Android 13 新权限
-      if (!AndroidVersion.isAndroid13()) {
+      if (!AndroidVersion.Companion.isAndroid13()) {
 
          if (PermissionUtils.equalsPermission(permission, Permission.POST_NOTIFICATIONS)) {
             return super.isPermissionPermanentDenied(activity, permission);
@@ -177,7 +178,7 @@ class PermissionDelegateImplV23 extends PermissionDelegateImplV14 {
       /* ---------------------------------------------------------------------------------------- */
 
       // 向下兼容 Android 12 新权限
-      if (!AndroidVersion.isAndroid12()) {
+      if (!AndroidVersion.Companion.isAndroid12()) {
 
          if (PermissionUtils.equalsPermission(permission, Permission.BLUETOOTH_SCAN)) {
             return !PermissionUtils.checkSelfPermission(activity, Permission.ACCESS_FINE_LOCATION) &&
@@ -193,7 +194,7 @@ class PermissionDelegateImplV23 extends PermissionDelegateImplV14 {
       /* ---------------------------------------------------------------------------------------- */
 
       // 向下兼容 Android 10 新权限
-      if (!AndroidVersion.isAndroid10()) {
+      if (!AndroidVersion.Companion.isAndroid10()) {
 
          if (PermissionUtils.equalsPermission(permission, Permission.ACCESS_BACKGROUND_LOCATION)) {
             return !PermissionUtils.checkSelfPermission(activity, Permission.ACCESS_FINE_LOCATION) &&
@@ -214,7 +215,7 @@ class PermissionDelegateImplV23 extends PermissionDelegateImplV14 {
       /* ---------------------------------------------------------------------------------------- */
 
       // 向下兼容 Android 9.0 新权限
-      if (!AndroidVersion.isAndroid9()) {
+      if (!AndroidVersion.Companion.isAndroid9()) {
 
          if (PermissionUtils.equalsPermission(permission, Permission.ACCEPT_HANDOVER)) {
             return false;
@@ -225,7 +226,7 @@ class PermissionDelegateImplV23 extends PermissionDelegateImplV14 {
 
       // 向下兼容 Android 8.0 新权限
 
-      if (!AndroidVersion.isAndroid8()) {
+      if (!AndroidVersion.Companion.isAndroid8()) {
 
          if (PermissionUtils.equalsPermission(permission, Permission.ANSWER_PHONE_CALLS)) {
             return false;
@@ -290,7 +291,7 @@ class PermissionDelegateImplV23 extends PermissionDelegateImplV14 {
     * 是否有系统设置权限
     */
    private static boolean isGrantedSettingPermission(Context context) {
-      if (AndroidVersion.isAndroid6()) {
+      if (AndroidVersion.Companion.isAndroid6()) {
          return Settings.System.canWrite(context);
       }
       return true;
@@ -321,7 +322,7 @@ class PermissionDelegateImplV23 extends PermissionDelegateImplV14 {
    private static Intent getNotDisturbPermissionIntent(Context context) {
       Intent intent = null;
 
-      if (AndroidVersion.isAndroid10()) {
+      if (AndroidVersion.Companion.isAndroid10()) {
          intent = new Intent("android.settings.NOTIFICATION_POLICY_ACCESS_DETAIL_SETTINGS");
          intent.setData(PermissionUtils.getPackageNameUri(context));
       }

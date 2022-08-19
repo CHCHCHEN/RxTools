@@ -7,11 +7,11 @@ ext.koin_version = "2.2.1"
 ext.kotlin_version = '1.6.10'
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         minSdk 21
-        targetSdk 32
+        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -94,4 +94,6 @@ dependencies {
 
     implementation 'org.apache.commons:commons-lang3:3.5'
     implementation 'joda-time:joda-time:2.9.9'
+
+    //implementation 'com.android.support:support-fragment:24.2.0'
 }
