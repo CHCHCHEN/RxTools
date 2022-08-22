@@ -17,9 +17,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
-import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.view.Surface;
+
+import androidx.annotation.RequiresApi;
 
 import org.xmlpull.v1.XmlPullParserException;
 

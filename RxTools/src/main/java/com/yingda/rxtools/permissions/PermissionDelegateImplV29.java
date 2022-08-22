@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.RequiresApi;
+
+import androidx.annotation.RequiresApi;
 
 /**
  * author: chen
