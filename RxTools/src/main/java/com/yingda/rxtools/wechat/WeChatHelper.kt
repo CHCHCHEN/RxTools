@@ -1,5 +1,6 @@
 package com.yingda.rxtools.wechat
 
+import android.annotation.SuppressLint
 import android.content.Context
 
 /**
@@ -12,8 +13,9 @@ class WeChatHelper private constructor(context: Context) : WeChatBaseHelper(cont
 
     companion object {
         var IS_LOGGABLE: Boolean = false
-
+        
         @Volatile
+        @SuppressLint("StaticFieldLeak")
         private var instance: WeChatHelper? = null
 
         @JvmStatic
@@ -28,8 +30,8 @@ class WeChatHelper private constructor(context: Context) : WeChatBaseHelper(cont
         IS_LOGGABLE = isLoggable
 
         // 将应用的appId注册到微信
-        val isInitWeChat = api.registerApp(mWeChatAppId)
-
+        api.registerApp(mWeChatAppId)
+        //val isInitWeChat = api.registerApp(mWeChatAppId)
         //Logger.d("isInitWeChat = $isInitWeChat  mWeChatAppId = $mWeChatAppId")
 
 //            //建议动态监听微信启动广播进行注册到微信

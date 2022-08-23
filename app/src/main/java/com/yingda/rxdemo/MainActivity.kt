@@ -24,9 +24,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         
         mBingding.apply {
-            ViseLog.i(123)
-            viewmodel.apply {
-            }
+            data = viewmodel
+            viewmodel.generateTimber()
         }
         
         mBingding.tvOne.text = "ViewBingding"

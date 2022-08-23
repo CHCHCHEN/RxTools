@@ -47,7 +47,7 @@ class FragmentDataBinding<T : ViewDataBinding>(
                 // 这里为了兼容在 navigation 中使用 Fragment
                 bind = layoutInflater.invoke(null, thisRef.layoutInflater) as T
             } else {
-                bind = DataBindingUtil.bind(thisRef.view!!)!!
+                bind = DataBindingUtil.bind(thisRef.requireView())!!
             }
             
             return bind.apply {

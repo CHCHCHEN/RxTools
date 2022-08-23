@@ -1,23 +1,19 @@
 import com.yingda.*
 
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("kotlin-parcelize")
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
     compileSdk = Versions.compileSdkVersion
     
     defaultConfig {
-        applicationId = Versions.applicationId
         minSdk = Versions.minSdkVersion
         targetSdk = Versions.targetSdkVersion
-        versionCode = Versions.libversionCode
-        versionName = Versions.libversionName
         
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
     
     lint {
@@ -52,23 +48,39 @@ android {
 
 dependencies {
     
-    implementation(project(":RxTools"))
+    compileOnly(Deps.AndroidX.coreKtx)
+    compileOnly(Deps.AndroidX.appcompat)
+    compileOnly(Deps.Android.material)
     
-    implementation(Deps.AndroidX.coreKtx)
-    implementation(Deps.AndroidX.appcompat)
-    implementation(Deps.Android.material)
-    implementation(Deps.AndroidX.constraintlayout)
+    compileOnly(Deps.junit)
+    compileOnly(Deps.AndroidX.junitx)
+    compileOnly(Deps.AndroidX.espresso)
     
-    testImplementation(Deps.junit)
-    androidTestImplementation(Deps.AndroidX.junitx)
-    androidTestImplementation(Deps.AndroidX.espresso)
     
-    //kotlin
-    implementation(Deps.AndroidX.viewmodel)
+    compileOnly(Deps.gson)
+    compileOnly(Deps.rxkotlin)
+    compileOnly(Deps.rxandroid)
+    compileOnly(Deps.rxadapter)
+    compileOnly(Deps.wechat)
     
-    implementation(Deps.gson)
-    implementation(Deps.rxkotlin)
-    implementation(Deps.rxandroid)
-    implementation(Deps.rxadapter)
-    implementation(Deps.wechat)
+    //recyclerview包
+    compileOnly(Deps.AndroidX.recyclerview)
+    compileOnly(Deps.AndroidX.annotation)
+    compileOnly(Deps.AndroidX.constraintlayout)
+    //流式布局
+    compileOnly(Deps.flexbox)
+    //沉浸式
+    compileOnly(Deps.systembartint)
+    
+    
+    //压缩与加密
+    compileOnly(Deps.zip4j)
+    
+    compileOnly(Deps.greendao)
+    compileOnly(Deps.exifinterface)
+    compileOnly(Deps.guava)
+    
+    
+    compileOnly(Deps.commons)
+    compileOnly(Deps.jodatime)
 }
