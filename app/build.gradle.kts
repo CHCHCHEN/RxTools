@@ -11,11 +11,11 @@ android {
     compileSdk = Versions.compileSdkVersion
     
     defaultConfig {
-        applicationId = Versions.applicationId
-        minSdk = Versions.minSdkVersion
-        targetSdk = Versions.targetSdkVersion
-        versionCode = Versions.libversionCode
-        versionName = Versions.libversionName
+        applicationId = "com.yingda.rxdemo"
+        minSdk = 21
+        targetSdk = 33
+        versionCode = 1
+        versionName = "1.0"
         
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -73,5 +73,5 @@ dependencies {
     implementation(Deps.wechat)
     
     implementation(Deps.disklrucache)
- 
+    
 }
