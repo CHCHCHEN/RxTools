@@ -50,7 +50,7 @@ object Versions {
 }
 
 object common {
-    val jdk = JavaVersion.VERSION_1_8
+    val jdk = JavaVersion.VERSION_11
 }
 
 object Deps {
