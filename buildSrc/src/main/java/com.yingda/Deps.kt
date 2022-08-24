@@ -24,8 +24,8 @@ object Versions {
     val junitx = "1.1.3"
     val espresso = "3.4.0"
     val viewmodel = "2.2.1"
-    val recyclerview = "1.1.0"
-    val annotation = "1.1.0"
+    val recyclerview = "1.2.1"
+    val annotation = "1.2.0"
     
     //Android
     val material = "1.4.0"
@@ -33,7 +33,8 @@ object Versions {
     val junit = "4.13.2"
     val gson = "2.8.5"
     val rxkotlin = "2.2.0"
-    val rxandroid = "2.0.2"
+   val rxjava = "2.2.10"
+    val rxandroid = "2.1.1"
     val rxadapter = "2.9.0"
     
     //lib
@@ -66,7 +67,7 @@ object Deps {
         val viewmodel = "org.koin:koin-androidx-viewmodel:${Versions.viewmodel}"
         
         val recyclerview = "androidx.recyclerview:recyclerview:${Versions.recyclerview}"
-        val annotation = "androidx.annotation:annotation:${Versions.annotation}"
+        val annotation = "androidx.annotation:annotation:1.2.0"
         
         
     }
@@ -81,9 +82,12 @@ object Deps {
     val junit = "junit:junit:${Versions.junit}"
     
     val gson = "com.google.code.gson:gson:${Versions.gson}"
+    val rxjava = "io.reactivex.rxjava2:rxjava:${Versions.rxjava}"
     val rxkotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rxkotlin}"
     val rxandroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxandroid}"
     val rxadapter = "com.squareup.retrofit2:adapter-rxjava2:${Versions.rxadapter}"
+    val rxretrofit= "com.squareup.retrofit2:retrofit:2.5.0"
+    val rxconverter= "com.squareup.retrofit2:converter-gson:2.5.0"
     val wechat = "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+"
     
     //lib
@@ -104,4 +108,8 @@ object Deps {
     val systembartint =
         "com.readystatesoftware.systembartint:systembartint:${Versions.systembartint}"
     
+    val disklrucache= "com.jakewharton:disklrucache:2.0.2"
+    
+    val okhttp3 = "com.squareup.okhttp3:okhttp:3.12.2"
+    val okhttp3logging = "com.squareup.okhttp3:logging-interceptor:3.12.2"
 }

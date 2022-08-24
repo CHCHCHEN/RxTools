@@ -28,6 +28,12 @@
 
 -keep class com.yingda.rxtools.** { *.; }
 
+#http
+-keep public class * extends com.yingda.rxtools.adapter.viewholder.BaseViewHolder
+-keepclassmembers  class **$** extends com.yingda.rxtools.adapter.viewholder.BaseViewHolder {
+     <init>(...);
+}
+
 #GT
 -dontwarn com.yingda.rxtools.gsls.**
 -keep public class com.yingda.rxtools.gsls.GT { *; }

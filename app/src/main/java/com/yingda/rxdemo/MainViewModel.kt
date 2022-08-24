@@ -2,6 +2,10 @@ package com.yingda.rxdemo
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
+import com.yingda.rxtools.http.RxHttp
+import com.yingda.rxtools.http.callback.SimpleCallBack
+import com.yingda.rxtools.http.exception.ApiException
 import com.yingda.rxtools.log.ViseLog
 import java.util.*
 
@@ -31,6 +35,21 @@ class MainViewModel : ViewModel() {
             },
             0, 500
         )
+    }
+    
+    fun networkRequest() {
+        RxHttp.post("api/topbaidu/")
+            .accessToken(false)
+            .timeStamp(true)
+            .execute(object : SimpleCallBack<String?>() {
+                override fun onError(e: ApiException?) {
+                    ViseLog.e("请求失败${e.toString()}")
+                }
+                
+                override fun onSuccess(t: String?) {
+                    ViseLog.i("请求成功$t")
+                }
+            })
     }
     
 }

@@ -10,4 +10,9 @@
     <string name="crash_error_details_copied">已复制到剪贴板</string>
     <string name="crash_error_details_clipboard_label">错误信息</string>
     <string name="crash_error_file">错误日志保存路径</string>
+    <!--适配器-->
+    <string name="brvah_loading">正在加载中...</string>
+    <string name="brvah_load_failed">加载失败，请点我重试</string>
+    <string name="brvah_load_end">没有更多数据</string>
+    <string name="brvah_load_complete">点击加载更多</string>
 </resources>

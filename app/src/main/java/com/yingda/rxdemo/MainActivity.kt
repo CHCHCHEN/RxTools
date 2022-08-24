@@ -28,7 +28,10 @@ class MainActivity : AppCompatActivity() {
             viewmodel.generateTimber()
         }
         
-        mBingding.tvOne.text = "ViewBingding"
+        mBingding.tvOne.setOnClickListener {
+            //发起网络请求
+            viewmodel.networkRequest()
+        }
         
         RxPermissions.with(this@MainActivity)
             //.permission(Permission.MANAGE_EXTERNAL_STORAGE)
@@ -43,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 
                 override fun onDenied(permissions: List<String?>?, never: Boolean) {
                     if (never) {
-                    
+                        GT.toast(this@MainActivity,"授权成功")
                     } else {
                         GT.toast_time(this@MainActivity, "被永久拒绝授权，请手动授予权限", 5000)
                         RxPermissions.startPermissionActivity(this@MainActivity, permissions)

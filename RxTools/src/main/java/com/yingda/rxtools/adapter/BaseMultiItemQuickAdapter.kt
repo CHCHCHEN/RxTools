@@ -1,0 +1,41 @@
+package com.yingda.rxtools.adapter
+
+import android.util.SparseIntArray
+import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import com.yingda.rxtools.adapter.entity.MultiItemEntity
+import com.yingda.rxtools.adapter.viewholder.BaseViewHolder
+
+/**
+ * author: chen
+ * data: 2022/8/24
+ * des: 多类型布局，适用于类型较少，业务不复杂的场景，便于快速使用。
+ * data[T]必须实现[MultiItemEntity]
+ *
+ * 如果数据类无法实现[MultiItemEntity]，请使用[BaseDelegateMultiAdapter]
+ * 如果类型较多，为了方便隔离各类型的业务逻辑，推荐使用[BaseProviderMultiAdapter]
+ */
+abstract class BaseMultiItemQuickAdapter<T : MultiItemEntity, VH : BaseViewHolder>(data: MutableList<T>? = null)
+    : BaseQuickAdapter<T, VH>(0, data) {
+    
+    private val layouts: SparseIntArray by lazy(LazyThreadSafetyMode.NONE) { SparseIntArray() }
+    
+    override fun getDefItemViewType(position: Int): Int {
+        return data[position].itemType
+    }
+    
+    override fun onCreateDefViewHolder(parent: ViewGroup, viewType: Int): VH {
+        val layoutResId = layouts.get(viewType)
+        require(layoutResId != 0) { "ViewType: $viewType found layoutResId，please use addItemType() first!" }
+        return createBaseViewHolder(parent, layoutResId)
+    }
+    
+    /**
+     * 调用此方法，设置多布局
+     * @param type Int
+     * @param layoutResId Int
+     */
+    protected fun addItemType(type: Int, @LayoutRes layoutResId: Int) {
+        layouts.put(type, layoutResId)
+    }
+}

@@ -57,7 +57,7 @@ dependencies {
     compileOnly(Deps.AndroidX.espresso)
     
     
-    compileOnly(Deps.gson)
+    //compileOnly(Deps.gson)
     compileOnly(Deps.rxkotlin)
     compileOnly(Deps.rxandroid)
     compileOnly(Deps.rxadapter)
@@ -65,7 +65,7 @@ dependencies {
     
     //recyclerview包
     compileOnly(Deps.AndroidX.recyclerview)
-    compileOnly(Deps.AndroidX.annotation)
+    //compileOnly(Deps.AndroidX.annotation)
     compileOnly(Deps.AndroidX.constraintlayout)
     //流式布局
     compileOnly(Deps.flexbox)
@@ -83,4 +83,12 @@ dependencies {
     
     compileOnly(Deps.commons)
     compileOnly(Deps.jodatime)
+    
+    //http
+    compileOnly(Deps.rxjava)
+    compileOnly(Deps.rxretrofit)
+    compileOnly(Deps.rxconverter)
+    compileOnly(Deps.disklrucache)
+    compileOnly(Deps.okhttp3)
+    compileOnly(Deps.okhttp3logging)
 }

@@ -71,4 +71,7 @@ dependencies {
     implementation(Deps.rxandroid)
     implementation(Deps.rxadapter)
     implementation(Deps.wechat)
+    
+    implementation(Deps.disklrucache)
+ 
 }
