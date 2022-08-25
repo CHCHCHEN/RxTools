@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    compileSdk = Versions.compileSdkVersion
+    compileSdk = 33
     
     defaultConfig {
         applicationId = "com.yingda.rxdemo"
@@ -18,11 +18,6 @@ android {
         versionName = "1.0"
         
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    
-    lint {
-        abortOnError = false
-        checkReleaseBuilds = false
     }
     
     //开启viewBinding和dataBinding

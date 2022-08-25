@@ -22,4 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "RxDemo"
 include(":app")
 include(":RxTools")
-rootProject.buildFileName = "build.gradle.kts"
+//rootProject.buildFileName = "build.gradle.kts"

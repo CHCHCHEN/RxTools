@@ -10,7 +10,6 @@ import org.gradle.api.JavaVersion
 
 object Versions {
     
-    val applicationId = "com.yingda.rxdemo"
     val compileSdkVersion = 33
     val minSdkVersion = 21
     val targetSdkVersion = 33
@@ -50,7 +49,7 @@ object Versions {
 }
 
 object common {
-    val jdk = JavaVersion.VERSION_1_8
+    val jdk = JavaVersion.VERSION_11
 }
 
 object Deps {

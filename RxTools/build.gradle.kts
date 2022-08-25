@@ -16,11 +16,6 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
     
-    lint {
-        abortOnError = false
-        checkReleaseBuilds = false
-    }
-    
     //开启viewBinding和dataBinding
     buildFeatures {
         dataBinding = true
