@@ -14,8 +14,6 @@ object Versions {
     val compileSdkVersion = 33
     val minSdkVersion = 21
     val targetSdkVersion = 33
-    val libversionCode = 119
-    val libversionName = "1.1.9"
     
     //AndroidX
     val coreKtx = "1.7.0"
@@ -26,6 +24,8 @@ object Versions {
     val viewmodel = "2.2.1"
     val recyclerview = "1.2.1"
     val annotation = "1.2.0"
+    
+    val kotlinversion = "1.6.10"
     
     //Android
     val material = "1.4.0"
@@ -50,7 +50,7 @@ object Versions {
 }
 
 object common {
-    val jdk = JavaVersion.VERSION_11
+    val jdk = JavaVersion.VERSION_1_8
 }
 
 object Deps {
@@ -69,7 +69,7 @@ object Deps {
         val recyclerview = "androidx.recyclerview:recyclerview:${Versions.recyclerview}"
         val annotation = "androidx.annotation:annotation:1.2.0"
         
-        
+        val kotlinstdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlinversion}"
     }
     
     object Android {
