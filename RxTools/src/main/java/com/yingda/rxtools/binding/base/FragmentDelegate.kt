@@ -25,7 +25,7 @@ abstract class FragmentDelegate<T : ViewBinding>(
          *
          */
         fragment.lifecycle.observerWhenCreated {
-            val fragmentManager = fragment.parentFragmentManager
+            val fragmentManager = fragment.requireFragmentManager()
             fragmentManager.registerFragmentLifecycleCallbacks(object :
                 FragmentManager.FragmentLifecycleCallbacks() {
                 override fun onFragmentViewDestroyed(fm: FragmentManager, f: Fragment) {

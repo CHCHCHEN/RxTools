@@ -1,0 +1,96 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+ext.koin_version = "2.2.1"
+ext.kotlin_version = '1.6.10'
+
+android {
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    lintOptions {
+        disable 'GoogleAppIndexingWarning'
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    //开启viewBinding和dataBinding
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    compileOnly 'androidx.core:core-ktx:1.7.0'
+    compileOnly 'androidx.appcompat:appcompat:1.2.0'
+    compileOnly 'com.google.android.material:material:1.4.0'
+    compileOnly 'junit:junit:4.13.2'
+    compileOnly 'androidx.test.ext:junit:1.1.3'
+    compileOnly 'androidx.test.espresso:espresso-core:3.4.0'
+
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
+    //沉浸式
+    compileOnly 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+
+    compileOnly 'androidx.constraintlayout:constraintlayout:2.0.1'
+    //流式布局
+    compileOnly 'com.google.android:flexbox:0.3.2'
+    //沉浸式
+    compileOnly 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+
+    //Log日志格式美化包
+    compileOnly 'com.orhanobut:logger:2.2.0'
+
+    //压缩与加密
+    implementation 'net.lingala.zip4j:zip4j:1.3.2'
+
+    compileOnly 'org.greenrobot:greendao:3.2.2'
+    compileOnly 'androidx.exifinterface:exifinterface:1.3.0'
+    compileOnly 'com.google.guava:guava:27.1-jre'
+
+
+    implementation 'org.apache.commons:commons-lang3:3.5'
+    implementation 'joda-time:joda-time:2.9.9'
+
+    //recyclerview包
+    compileOnly 'androidx.recyclerview:recyclerview:1.2.1'
+
+    //http
+    compileOnly 'com.squareup.okhttp3:logging-interceptor:3.12.2'
+    compileOnly 'com.squareup.okhttp3:okhttp:3.12.2'
+    compileOnly 'com.jakewharton:disklrucache:2.0.2'
+
+
+    compileOnly 'io.reactivex.rxjava2:rxjava:2.2.10'
+    compileOnly 'io.reactivex.rxjava2:rxkotlin:2.2.0'
+    compileOnly 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    compileOnly 'com.squareup.retrofit2:retrofit:2.5.0'
+    compileOnly 'com.squareup.retrofit2:converter-gson:2.5.0'
+    compileOnly 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+}
