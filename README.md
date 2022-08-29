@@ -73,57 +73,55 @@ android {
 }
 ```
 
-## 初始化
+## 微信
 
 ``` kotlin
+//初始化
 WeChatClient.init(applicationContext, BuildConfig.DEBUG)
 ```
 
-## 分享 Scene
+* 分享Scene
 
-| Scene.Timeline | 朋友圈 |
-| Scene.Favorite | 收藏夹 |
-| Scene.Session | 联系人 |
+Timeline 朋友圈 Favorite 收藏夹 Session 联系人
 
-### 分享文字
+* 分享文字
 
 ``` kotlin
 WeChatClient.shareText(`分享的文字`, `Scene`, `OnWeChatShareListener`)
 ```
 
-### 分享图片
+* 分享图片
 
 ``` kotlin
 WeChatClient.shareImage(`Bitmap`, `Scene`, `OnWeChatShareListener`)
 ```
 
-### 分享音乐
+* 分享音乐
 
 ``` kotlin
 WeChatClient.shareMusic(`Bitmap`, `Scene`, `音乐链接`, `分享音乐名称`, `分享音乐描述`, `OnWeChatShareListener`)
 ```
 
-### 分享视频
+* 分享视频
 
 ``` kotlin
 WeChatClient.shareVideo(`Bitmap`, `Scene`, `视频链接`, `分享视频名称`, `分享视频描述`, `OnWeChatShareListener`)
 ```
 
-### 分享网址
+* 分享网址
 
 ``` kotlin
 WeChatClient.shareWebPage(`Bitmap`, `Scene`, `网址链接`, `分享网址名称`, `分享网址描述`, `OnWeChatShareListener`)
 ```
 
-
-## 授权登录
+* 授权登录
 
 ``` kotlin
 WeChatClient.authLogin(`OnWeChatAuthLoginListener`)
 ```
 
 
-## 支付
+* 支付
 
 ``` kotlin
 WeChatClient.payment(`IPaymentParams` ,`OnWeChatPaymentListener`)
