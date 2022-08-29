@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.yingda.rxdemo.databinding.ActivityMainBinding
 import com.yingda.rxtools.binding.viewbind
 import com.yingda.rxtools.gsls.GT
-import com.yingda.rxtools.log.ViseLog
 import com.yingda.rxtools.permissions.OnPermissionCallback
 import com.yingda.rxtools.permissions.Permission
 import com.yingda.rxtools.permissions.RxPermissions
+import com.yingda.rxtools.thread.ThreadPoolHelp
+import com.yingda.rxtools.thread.ThreadTaskObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.concurrent.TimeUnit
+
 
 class MainActivity : AppCompatActivity() {
     
@@ -54,5 +57,18 @@ class MainActivity : AppCompatActivity() {
                 }
                 
             })
+    
+        //创建默认线程池
+        object : ThreadTaskObject() {
+            override fun run() {
+                //线程执行体
+            }
+        }.start()
+        //创建一个定长线程池定时任务
+        val executorService = ThreadPoolHelp.Builder.schedule(1).scheduleBuilder()
+        executorService.schedule({
+            //发起网络请求
+            viewmodel.networkRequest()
+        }, 1200, TimeUnit.MILLISECONDS)
     }
 }

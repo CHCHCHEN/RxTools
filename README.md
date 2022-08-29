@@ -17,7 +17,7 @@ allprojects {
 ```gradle
 dependencies {
   //基础工具库
-  implementation 'com.github.CHCHCHEN:RxTools:1.3.5'
+  implementation 'com.github.CHCHCHEN:RxTools:1.3.7'
 }
 ```
 
@@ -167,7 +167,23 @@ RxPermissions.with(this@MainActivity)
                     }
                 }
                 
-            })
+            })    
+```
+
+## 线程池
+
+``` kotlin
+//创建默认线程池
+object : ThreadTaskObject() {
+override fun run() {
+//线程执行体
+}
+}.start()
+//创建一个定长线程池定时任务
+val executorService = ThreadPoolHelp.Builder.schedule(1).scheduleBuilder()
+executorService.schedule({
+//线程执行体
+}, 1200, TimeUnit.MILLISECONDS)
 ```
 
 
