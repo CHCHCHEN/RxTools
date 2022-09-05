@@ -17,7 +17,7 @@ allprojects {
 ```gradle
 dependencies {
   //基础工具库
-  implementation 'com.github.CHCHCHEN:RxTools:1.3.7'
+  implementation 'com.github.CHCHCHEN:RxTools:1.3.8'
 }
 ```
 

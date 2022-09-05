@@ -1,5 +1,6 @@
 package com.yingda.rxdemo.app
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.util.Log
@@ -91,6 +92,7 @@ class BaseApplication : Application() {
     companion object {
 
         private var app: Application? = null
+        @SuppressLint("StaticFieldLeak")
         private var hibernate: Hibernate? = null
 
 
