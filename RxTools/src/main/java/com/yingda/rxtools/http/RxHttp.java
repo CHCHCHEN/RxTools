@@ -48,19 +48,19 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  * author: chen
  * data: 2022/8/24
  * des: * <p>描述：网络请求入口类</p>
- *  * 主要功能：</br>
- *  * 1.全局设置超时时间
- *  * 2.支持请求错误重试相关参数，包括重试次数、重试延时时间</br>
- *  * 3.支持缓存支持6种缓存模式、时间、大小、缓存目录</br>
- *  * 4.支持支持GET、post、delete、put请求</br>
- *  * 5.支持支持自定义请求</br>
- *  * 6.支持文件上传、下载</br>
- *  * 7.支持全局公共请求头</br>
- *  * 8.支持全局公共参数</br>
- *  * 9.支持okhttp相关参数，包括拦截器</br>
- *  * 10.支持Retrofit相关参数</br>
- *  * 11.支持Cookie管理</br>
-*/
+ * * 主要功能：</br>
+ * * 1.全局设置超时时间
+ * * 2.支持请求错误重试相关参数，包括重试次数、重试延时时间</br>
+ * * 3.支持缓存支持6种缓存模式、时间、大小、缓存目录</br>
+ * * 4.支持支持GET、post、delete、put请求</br>
+ * * 5.支持支持自定义请求</br>
+ * * 6.支持文件上传、下载</br>
+ * * 7.支持全局公共请求头</br>
+ * * 8.支持全局公共参数</br>
+ * * 9.支持okhttp相关参数，包括拦截器</br>
+ * * 10.支持Retrofit相关参数</br>
+ * * 11.支持Cookie管理</br>
+ */
 public final class RxHttp {
     private static Application sContext;
     public static final int DEFAULT_MILLISECONDS = 60000;             //默认的超时时间
@@ -176,8 +176,8 @@ public final class RxHttp {
      * 并不是框架错误,如果不想每次打印,这里可以关闭异常显示
      */
     public RxHttp debug(String tag, boolean isPrintException) {
-        String tempTag = TextUtils.isEmpty(tag)?"RxEasyHttp_":tag;
-        if(isPrintException){
+        String tempTag = TextUtils.isEmpty(tag) ? "RxEasyHttp_" : tag;
+        if (isPrintException) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(tempTag, isPrintException);
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             okHttpClientBuilder.addInterceptor(loggingInterceptor);
@@ -272,7 +272,8 @@ public final class RxHttp {
      * 超时重试次数
      */
     public RxHttp setRetryCount(int retryCount) {
-        if (retryCount < 0) throw new IllegalArgumentException("retryCount must > 0");
+        if (retryCount < 0)
+            throw new IllegalArgumentException("retryCount must > 0");
         mRetryCount = retryCount;
         return this;
     }
@@ -288,7 +289,8 @@ public final class RxHttp {
      * 超时重试延迟时间
      */
     public RxHttp setRetryDelay(int retryDelay) {
-        if (retryDelay < 0) throw new IllegalArgumentException("retryDelay must > 0");
+        if (retryDelay < 0)
+            throw new IllegalArgumentException("retryDelay must > 0");
         mRetryDelay = retryDelay;
         return this;
     }
@@ -336,7 +338,8 @@ public final class RxHttp {
      * 全局的缓存过期时间
      */
     public RxHttp setCacheTime(long cacheTime) {
-        if (cacheTime <= -1) cacheTime = DEFAULT_CACHE_NEVER_EXPIRE;
+        if (cacheTime <= -1)
+            cacheTime = DEFAULT_CACHE_NEVER_EXPIRE;
         mCacheTime = cacheTime;
         return this;
     }
@@ -416,7 +419,8 @@ public final class RxHttp {
      * 添加全局公共请求参数
      */
     public RxHttp addCommonParams(HttpParams commonParams) {
-        if (mCommonParams == null) mCommonParams = new HttpParams();
+        if (mCommonParams == null)
+            mCommonParams = new HttpParams();
         mCommonParams.put(commonParams);
         return this;
     }
@@ -439,7 +443,8 @@ public final class RxHttp {
      * 添加全局公共请求参数
      */
     public RxHttp addCommonHeaders(HttpHeaders commonHeaders) {
-        if (mCommonHeaders == null) mCommonHeaders = new HttpHeaders();
+        if (mCommonHeaders == null)
+            mCommonHeaders = new HttpHeaders();
         mCommonHeaders.put(commonHeaders);
         return this;
     }
@@ -608,7 +613,7 @@ public final class RxHttp {
         }, new Consumer<Throwable>() {
             @Override
             public void accept(@NonNull Throwable throwable) throws Exception {
-                    HttpLog.i("removeCache err!!!");
+                HttpLog.i("removeCache err!!!");
             }
         });
     }
