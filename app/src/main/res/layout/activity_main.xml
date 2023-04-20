@@ -24,13 +24,20 @@
             android:textColor="@color/color_008ADB"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="HELLO WORD" />
 
+        <com.tencent.smtt.sdk.WebView
+            android:id="@+id/webeee"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 </layout>

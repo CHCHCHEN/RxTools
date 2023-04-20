@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RxDemo</string>
+    <string name="jsonString">""{"code":0,"msg":"成功","result":null}""</string>
 </resources>
