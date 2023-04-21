@@ -69,8 +69,6 @@ class MainActivity : AppCompatActivity() {
                 override fun onDenied(permissions: List<String?>?, never: Boolean) {
                     if (never) {
                         GT.toast(this@MainActivity, "授权成功")
-
-
                     } else {
                         GT.toast_time(this@MainActivity, "被永久拒绝授权，请手动授予权限", 5000)
                         RxPermissions.startPermissionActivity(this@MainActivity, permissions)
@@ -90,13 +88,12 @@ class MainActivity : AppCompatActivity() {
             it.webChromeClient = MyChromeClient()
             it.webViewClient = MyWebViewClient()
 
-            //it.loadUrl("debugtbs.qq.com")
-            it.loadUrl("file:android_asset/index.html")
-
-            it.loadUrl("http://service.spiritsoft.cn/ua.html")
-            it.evaluateJavascript("setTips(\"内核初始化中...\")", null)
+            it.loadUrl("debugtbs.qq.com")
+            //it.loadUrl("file:android_asset/index.html")
+//            it.loadUrl("http://service.spiritsoft.cn/ua.html")
+            //it.evaluateJavascript("setTips(\"内核初始化中...\")", null)
         }
-        //startCheckCore()
+        startCheckCore()
 
        ViseLog.i(QbSdk.getTbsVersion(this))
 

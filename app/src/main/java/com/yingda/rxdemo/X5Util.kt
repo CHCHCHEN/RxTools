@@ -18,9 +18,7 @@ class X5Util(context: Context, listener: LocalInstallListener) {
     /**
      * 内核存放的文件夹
      */
-    private val DIR =
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path
-
+    private val DIR =context.filesDir
 
 
     /**
@@ -37,7 +35,7 @@ class X5Util(context: Context, listener: LocalInstallListener) {
     /**
      * 内核文件路径
      */
-    private val CORE_PATH = "/data/user/0/com.yingda.rxdemo/files/$CORE_NAME"
+    private val CORE_PATH = "$DIR/$CORE_NAME"
 
     /**
      * 上下文
@@ -70,7 +68,6 @@ class X5Util(context: Context, listener: LocalInstallListener) {
          */
         var abi: String? = Build.CPU_ABI
 
-        ViseLog.i(abi)
 
         // 如果是v8a的，和内核型号匹配则直接进行离线内核安装
         if ("arm64-v8a" == abi) {
@@ -80,7 +77,7 @@ class X5Util(context: Context, listener: LocalInstallListener) {
                 startInstallX5LocationCore()
             }
         } else {
-            Log.d(TAG, "内核型号不匹配，无法进行本地离线安装内核")
+            ViseLog.d("内核型号不匹配，无法进行本地离线安装内核")
         }
     }
 
@@ -95,11 +92,11 @@ class X5Util(context: Context, listener: LocalInstallListener) {
                 override fun run() {
                     QbSdk.initX5Environment(mContext, object : PreInitCallback {
                         override fun onCoreInitFinished() {
-                            Log.d(TAG, "onCoreInitFinished")
+                            ViseLog.d( "onCoreInitFinished")
                         }
 
                         override fun onViewInitFinished(p0: Boolean) {
-                            Log.d(TAG, "onViewInitFinished_p0=$p0")
+                            ViseLog.d("onViewInitFinished_p0=$p0")
 //                            if (!p0) {
 //                                QbSdk.initX5Environment(mContext, null)
 //                            } else {
@@ -115,12 +112,12 @@ class X5Util(context: Context, listener: LocalInstallListener) {
                         timer.cancel()
                         mLocalInstallListener.onSuccess()
                     } else {
-                        Log.d(TAG, "循环检验内核版本$version")
+                        ViseLog.d( "循环检验内核版本$version")
                     }
                 }
             }, 0, 1000)
         } catch (e: Exception) {
-            Log.d(TAG, "本地离线内核安装异常,异常信息>${e.message}")
+            ViseLog.d("本地离线内核安装异常,异常信息>${e.message}")
         }
     }
 
@@ -150,10 +147,10 @@ class X5Util(context: Context, listener: LocalInstallListener) {
             }
             fos.close()
             ins.close()
-            Log.d(TAG, "拷贝内核文件完成")
+            ViseLog.d("拷贝内核文件完成")
             return true
         } catch (e: Exception) {
-            Log.d(TAG, "拷贝内核文件异常，异常信息>${e.message}")
+            ViseLog.d( "拷贝内核文件异常，异常信息>${e.message}")
             mLocalInstallListener.onError(e.message.toString())
         }
         return false
