@@ -6,11 +6,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.webkit.WebSettings
 import androidx.appcompat.app.AppCompatActivity
-import com.n.web.LocalInstallListener
-import com.n.web.X5Util
 import com.tencent.smtt.sdk.QbSdk
-import com.tencent.smtt.sdk.QbSdk.PreInitCallback
-import com.tencent.smtt.sdk.QbSdk.isTbsCoreInited
+import com.tencent.smtt.sdk.TbsReaderView
 import com.yingda.rxdemo.databinding.ActivityMainBinding
 import com.yingda.rxtools.binding.viewbind
 import com.yingda.rxtools.gsls.GT
@@ -38,6 +35,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var x5Util: X5Util
 
+
+    private val tbsReaderTemp =
+        Environment.getExternalStorageDirectory().toString() + "/TbsReaderTemp"
+    var mTbsReaderView: TbsReaderView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,14 +89,14 @@ class MainActivity : AppCompatActivity() {
             it.webChromeClient = MyChromeClient()
             it.webViewClient = MyWebViewClient()
 
-            it.loadUrl("debugtbs.qq.com")
-            //it.loadUrl("file:android_asset/index.html")
+//            it.loadUrl("debugtbs.qq.com")
+//            it.loadUrl("file:android_asset/index.html")
 //            it.loadUrl("http://service.spiritsoft.cn/ua.html")
-            //it.evaluateJavascript("setTips(\"内核初始化中...\")", null)
+//            it.evaluateJavascript("setTips(\"内核初始化中...\")", null)
         }
         startCheckCore()
 
-       ViseLog.i(QbSdk.getTbsVersion(this))
+        ViseLog.i(QbSdk.getTbsVersion(this))
 
         var abi: String? = Build.CPU_ABI
 
@@ -129,6 +130,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
+
     /**
      * 开始检测x5内核
      */
@@ -144,7 +147,10 @@ class MainActivity : AppCompatActivity() {
 
                     ViseLog.i("内核安装${second}s后成功")
                     runOnUiThread {
-                        mBingding.webeee.evaluateJavascript("setTips(\"内核安装${second}s后成功\")", null)
+                        mBingding.webeee.evaluateJavascript(
+                            "setTips(\"内核安装${second}s后成功\")",
+                            null
+                        )
                     }
                 }
 
@@ -152,7 +158,10 @@ class MainActivity : AppCompatActivity() {
                 override fun onError(message: String) {
                     ViseLog.e("内核安装${second}s后失败，$message")
                     runOnUiThread {
-                        mBingding.webeee.evaluateJavascript("setTips(\"内核安装${second}s后失败，$message\")", null)
+                        mBingding.webeee.evaluateJavascript(
+                            "setTips(\"内核安装${second}s后失败，$message\")",
+                            null
+                        )
                     }
                     timer.cancel()
                 }
@@ -164,7 +173,7 @@ class MainActivity : AppCompatActivity() {
                 // 子线程安装内核
                 x5Util.startInstallX5()
             }.start()
-        }else{
+        } else {
             mBingding.webeee.evaluateJavascript("setTips(\"内核加载成功\")", null)
         }
     }
@@ -178,9 +187,13 @@ class MainActivity : AppCompatActivity() {
             override fun run() {
                 runOnUiThread {
                     second++
-                    mBingding.webeee.evaluateJavascript("setTips(\"内核初始化中...${second}s\")", null)
+                    mBingding.webeee.evaluateJavascript(
+                        "setTips(\"内核初始化中...${second}s\")",
+                        null
+                    )
                 }
             }
         }, 0, 1000)
     }
+
 }

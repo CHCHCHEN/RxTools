@@ -1,4 +1,4 @@
-package com.n.web
+package com.yingda.rxdemo
 
 import android.content.Context
 import android.os.Build
@@ -9,6 +9,7 @@ import com.tencent.smtt.sdk.QbSdk.PreInitCallback
 import com.yingda.rxtools.log.ViseLog
 import java.io.File
 import java.io.FileOutputStream
+import java.security.cert.CertPath
 import java.util.*
 
 class X5Util(context: Context, listener: LocalInstallListener) {
@@ -18,24 +19,21 @@ class X5Util(context: Context, listener: LocalInstallListener) {
     /**
      * 内核存放的文件夹
      */
-    private val DIR =context.filesDir
+    private val DIR = context.filesDir
 
 
     /**
      * 内核版本号
      */
-    private val CORE_VERSION = 46141
+    private val CORE_VERSION = 46247
 //    private val CORE_VERSION = 46011
 
     /**
      * 内核文件名称
      */
-    private val CORE_NAME = "tbs_core_046141_20220915165042_nolog_fs_obfs_arm64-v8a_release.tbs"
-
-    /**
-     * 内核文件路径
-     */
-    private val CORE_PATH = "$DIR/$CORE_NAME"
+    private val CORE_NAME_arm64_v8a = "tbs_core_046247_20230317115214_nolog_fs_obfs_arm64-v8a_release.tbs"
+    private val CORE_NAME_armeabi_v7a = "tbs_core_046141_20220915165042_nolog_fs_obfs_arm64-v8a_release.tbs"
+    private val CORE_NAME_armeabi = "tbs_core_046141_20220915165042_nolog_fs_obfs_arm64-v8a_release.tbs"
 
     /**
      * 上下文
@@ -70,21 +68,26 @@ class X5Util(context: Context, listener: LocalInstallListener) {
 
 
         // 如果是v8a的，和内核型号匹配则直接进行离线内核安装
-        if ("arm64-v8a" == abi) {
-            val isExitCore = copyX5Core()
-            if (isExitCore) {
-                // 存在内核文件
-                startInstallX5LocationCore()
+        when(abi){
+            "arm64-v8a"->{
+                val isExitCore = copyX5Core("$DIR/$CORE_NAME_arm64_v8a",CORE_NAME_arm64_v8a)
+                if (isExitCore) {
+                    // 存在内核文件
+                    startInstallX5LocationCore("$DIR/$CORE_NAME_arm64_v8a")
+                }
             }
-        } else {
-            ViseLog.d("内核型号不匹配，无法进行本地离线安装内核")
+            else ->{
+                ViseLog.d("内核型号不匹配，无法进行本地离线安装内核")
+            }
         }
     }
 
     /**
      * 开始安装本地离线内核
+     *
+     * CORE_PATH 内核文件路径
      */
-    private fun startInstallX5LocationCore() {
+    private fun startInstallX5LocationCore(CORE_PATH: String) {
         try {
             QbSdk.installLocalTbsCore(mContext, CORE_VERSION, CORE_PATH)
             val timer = Timer()
@@ -92,7 +95,7 @@ class X5Util(context: Context, listener: LocalInstallListener) {
                 override fun run() {
                     QbSdk.initX5Environment(mContext, object : PreInitCallback {
                         override fun onCoreInitFinished() {
-                            ViseLog.d( "onCoreInitFinished")
+                            ViseLog.d("onCoreInitFinished")
                         }
 
                         override fun onViewInitFinished(p0: Boolean) {
@@ -112,7 +115,7 @@ class X5Util(context: Context, listener: LocalInstallListener) {
                         timer.cancel()
                         mLocalInstallListener.onSuccess()
                     } else {
-                        ViseLog.d( "循环检验内核版本$version")
+                        ViseLog.d("循环检验内核版本$version")
                     }
                 }
             }, 0, 1000)
@@ -124,7 +127,7 @@ class X5Util(context: Context, listener: LocalInstallListener) {
     /**
      * 将内核文件拷贝到指定目录
      */
-    private fun copyX5Core(): Boolean {
+    private fun copyX5Core(CORE_PATH: String, CORE_NAME: String): Boolean {
         var file: File?
         try {
             // 目录存在，则将assets中的内核文件复制进去
@@ -150,7 +153,7 @@ class X5Util(context: Context, listener: LocalInstallListener) {
             ViseLog.d("拷贝内核文件完成")
             return true
         } catch (e: Exception) {
-            ViseLog.d( "拷贝内核文件异常，异常信息>${e.message}")
+            ViseLog.d("拷贝内核文件异常，异常信息>${e.message}")
             mLocalInstallListener.onError(e.message.toString())
         }
         return false
