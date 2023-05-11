@@ -2,45 +2,72 @@ package com.yingda.rxtools.permissions;
 
 import android.app.Activity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * author: chen
- * data: 2022/8/18
+ * data: 2023/5/11
  * des: 权限请求拦截器
 */
 public interface IPermissionInterceptor {
 
     /**
-     * 权限申请拦截，可在此处先弹 Dialog 再申请权限
+     * 发起权限申请（可在此处先弹 Dialog 再申请权限，如果用户已经授予权限，则不会触发此回调）
+     *
+     * @param allPermissions            申请的权限
+     * @param callback                  权限申请回调
      */
-    default void requestPermissions(Activity activity, List<String> allPermissions,
-                                    OnPermissionCallback callback) {
-        PermissionFragment.beginRequest(activity, new ArrayList<>(allPermissions), this, callback);
+    default void launchPermissionRequest(@NonNull Activity activity, @NonNull List<String> allPermissions,
+                                         @Nullable OnPermissionCallback callback) {
+        PermissionFragment.launch(activity, new ArrayList<>(allPermissions), this, callback);
     }
 
     /**
-     * 权限授予回调拦截，参见 {@link OnPermissionCallback#onGranted(List, boolean)}
+     * 用户授予了权限（注意需要在此处回调 {@link OnPermissionCallback#onGranted(List, boolean)}）
+     *
+     * @param allPermissions             申请的权限
+     * @param grantedPermissions         已授予的权限
+     * @param allGranted                 是否全部授予
+     * @param callback                   权限申请回调
      */
-    default void grantedPermissions(Activity activity, List<String> allPermissions,
-                                    List<String> grantedPermissions, boolean all,
-                                    OnPermissionCallback callback) {
+    default void grantedPermissionRequest(@NonNull Activity activity, @NonNull List<String> allPermissions,
+                                          @NonNull List<String> grantedPermissions, boolean allGranted,
+                                          @Nullable OnPermissionCallback callback) {
         if (callback == null) {
             return;
         }
-        callback.onGranted(grantedPermissions, all);
+        callback.onGranted(grantedPermissions, allGranted);
     }
 
     /**
-     * 权限拒绝回调拦截，参见 {@link OnPermissionCallback#onDenied(List, boolean)}
+     * 用户拒绝了权限（注意需要在此处回调 {@link OnPermissionCallback#onDenied(List, boolean)}）
+     *
+     * @param allPermissions            申请的权限
+     * @param deniedPermissions         已拒绝的权限
+     * @param doNotAskAgain             是否勾选了不再询问选项
+     * @param callback                  权限申请回调
      */
-    default void deniedPermissions(Activity activity, List<String> allPermissions,
-                                   List<String> deniedPermissions, boolean never,
-                                   OnPermissionCallback callback) {
+    default void deniedPermissionRequest(@NonNull Activity activity, @NonNull List<String> allPermissions,
+                                         @NonNull List<String> deniedPermissions, boolean doNotAskAgain,
+                                         @Nullable OnPermissionCallback callback) {
         if (callback == null) {
             return;
         }
-        callback.onDenied(deniedPermissions, never);
+        callback.onDenied(deniedPermissions, doNotAskAgain);
     }
+
+
+    /**
+     * 权限请求完成
+     *
+     * @param allPermissions            申请的权限
+     * @param skipRequest               是否跳过了申请过程
+     * @param callback                  权限申请回调
+     */
+    default void finishPermissionRequest(@NonNull Activity activity, @NonNull List<String> allPermissions,
+                                         boolean skipRequest, @Nullable OnPermissionCallback callback) {}
 }

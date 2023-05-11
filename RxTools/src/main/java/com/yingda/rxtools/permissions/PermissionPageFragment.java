@@ -5,12 +5,15 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * author: chen
- * data: 2022/8/18
+ * data: 2023/5/11
  * des: 权限页跳转 Fragment
  */
 @SuppressWarnings("deprecation")
@@ -24,7 +27,8 @@ public final class PermissionPageFragment extends Fragment implements Runnable {
     /**
      * 开启权限申请
      */
-    public static void beginRequest(Activity activity, ArrayList<String> permissions, OnPermissionPageCallback callback) {
+    public static void beginRequest(@NonNull Activity activity, @NonNull ArrayList<String> permissions,
+                                    @Nullable OnPermissionPageCallback callback) {
         PermissionPageFragment fragment = new PermissionPageFragment();
         Bundle bundle = new Bundle();
         bundle.putStringArrayList(REQUEST_PERMISSIONS, permissions);
@@ -42,6 +46,7 @@ public final class PermissionPageFragment extends Fragment implements Runnable {
     /**
      * 权限回调对象
      */
+    @Nullable
     private OnPermissionPageCallback mCallBack;
 
     /**
@@ -57,15 +62,29 @@ public final class PermissionPageFragment extends Fragment implements Runnable {
     /**
      * 绑定 Activity
      */
-    public void attachActivity(Activity activity) {
+    public void attachActivity(@NonNull Activity activity) {
         activity.getFragmentManager().beginTransaction().add(this, this.toString()).commitAllowingStateLoss();
     }
 
     /**
      * 解绑 Activity
      */
-    public void detachActivity(Activity activity) {
+    public void detachActivity(@NonNull Activity activity) {
         activity.getFragmentManager().beginTransaction().remove(this).commitAllowingStateLoss();
+    }
+
+    /**
+     * 设置权限监听回调监听
+     */
+    public void setCallBack(@Nullable OnPermissionPageCallback callback) {
+        mCallBack = callback;
+    }
+
+    /**
+     * 权限申请标记（防止系统杀死应用后重新触发请求的问题）
+     */
+    public void setRequestFlag(boolean flag) {
+        mRequestFlag = flag;
     }
 
     @Override
@@ -90,25 +109,11 @@ public final class PermissionPageFragment extends Fragment implements Runnable {
             return;
         }
         List<String> permissions = arguments.getStringArrayList(REQUEST_PERMISSIONS);
-        startActivityForResult(PermissionUtils.getSmartPermissionIntent(getActivity(), permissions), RxPermissions.REQUEST_CODE);
-    }
-
-    /**
-     * 设置权限监听回调监听
-     */
-    public void setCallBack(OnPermissionPageCallback callback) {
-        mCallBack = callback;
-    }
-
-    /**
-     * 权限申请标记（防止系统杀死应用后重新触发请求的问题）
-     */
-    public void setRequestFlag(boolean flag) {
-        mRequestFlag = flag;
+        StartActivityManager.startActivityForResult(this, PermissionUtils.getSmartPermissionIntent(getActivity(), permissions), RxPermissions.REQUEST_CODE);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode != RxPermissions.REQUEST_CODE) {
             return;
         }
@@ -144,7 +149,7 @@ public final class PermissionPageFragment extends Fragment implements Runnable {
         mCallBack = null;
 
         if (callback == null) {
-            detachActivity(getActivity());
+            detachActivity(activity);
             return;
         }
 
@@ -157,5 +162,7 @@ public final class PermissionPageFragment extends Fragment implements Runnable {
         } else {
             callback.onDenied();
         }
+
+        detachActivity(activity);
     }
 }

@@ -3,11 +3,10 @@ package com.yingda.rxdemo
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.webkit.WebSettings
 import androidx.appcompat.app.AppCompatActivity
 import com.tencent.smtt.sdk.QbSdk
-import com.tencent.smtt.sdk.TbsReaderView
+import com.tencent.smtt.sdk.TbsReaderView.ReaderCallback
 import com.yingda.rxdemo.databinding.ActivityMainBinding
 import com.yingda.rxtools.binding.viewbind
 import com.yingda.rxtools.gsls.GT
@@ -16,11 +15,12 @@ import com.yingda.rxtools.permissions.OnPermissionCallback
 import com.yingda.rxtools.permissions.Permission
 import com.yingda.rxtools.permissions.RxPermissions
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 import java.util.Timer
 import java.util.TimerTask
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ReaderCallback {
 
     //数据层
     private val viewmodel: MainViewModel by viewModel()
@@ -34,11 +34,6 @@ class MainActivity : AppCompatActivity() {
     private var second = 0
 
     private lateinit var x5Util: X5Util
-
-
-    private val tbsReaderTemp =
-        Environment.getExternalStorageDirectory().toString() + "/TbsReaderTemp"
-    var mTbsReaderView: TbsReaderView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,12 +58,8 @@ class MainActivity : AppCompatActivity() {
             //.permission(Permission.READ_EXTERNAL_STORAGE)
             //.permission(Permission.WRITE_EXTERNAL_STORAGE)
             .request(object : OnPermissionCallback {
-                override fun onGranted(permissions: List<String?>?, all: Boolean) {
-
-                }
-
-                override fun onDenied(permissions: List<String?>?, never: Boolean) {
-                    if (never) {
+                override fun onGranted(permissions: MutableList<String>, allGranted: Boolean) {
+                    if (allGranted) {
                         GT.toast(this@MainActivity, "授权成功")
                     } else {
                         GT.toast_time(this@MainActivity, "被永久拒绝授权，请手动授予权限", 5000)
@@ -76,6 +67,9 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
+                override fun onDenied(permissions: MutableList<String>, doNotAskAgain: Boolean) {
+
+                }
             })
 
         mBingding.webeee.let {
@@ -89,18 +83,70 @@ class MainActivity : AppCompatActivity() {
             it.webChromeClient = MyChromeClient()
             it.webViewClient = MyWebViewClient()
 
-//            it.loadUrl("debugtbs.qq.com")
+            it.loadUrl("debugtbs.qq.com")
 //            it.loadUrl("file:android_asset/index.html")
 //            it.loadUrl("http://service.spiritsoft.cn/ua.html")
 //            it.evaluateJavascript("setTips(\"内核初始化中...\")", null)
         }
-        startCheckCore()
+        //startCheckCore()
 
         ViseLog.i(QbSdk.getTbsVersion(this))
 
         var abi: String? = Build.CPU_ABI
 
-        ViseLog.i(abi)
+
+
+
+
+
+
+
+        QbSdk.initX5Environment(this, null)
+
+        //ViseLog.d(fileIsExists("/storage/emulated/0/Android/data/com.yingda.rxdemo/files/Documents"))
+        val bundle = Bundle()
+        bundle.putString("filepath", "/storage/emulated/0/download/WeiXin/wangyingda.pdf")
+        //指定腾讯文件缓存路径
+        bundle.putString(
+            "tempPath",
+            "/storage/emulated/0/Android/data/com.yingda.rxdemo/files/Documents"
+        )
+        mBingding.rlHead.removeAllViews()
+
+
+
+
+//        val mTbsReaderView = TbsReaderView(this@MainActivity, this@MainActivity)
+//        mBingding.rlHead.addView(
+//            mTbsReaderView
+//        )
+//        val result = mTbsReaderView.preOpen("pdf", false)
+//        QbSdk.clearAllWebViewCache(this@MainActivity, true)
+//
+//        ViseLog.e(result)
+//        mTbsReaderView.openFile(bundle)
+//
+//        ViseLog.d(QbSdk.getIsInitX5Environment())
+
+//        val wordReadView = WordReadView(this@MainActivity)
+//        //wordReadView.destroy()
+//        mBingding.rlHead.addView(wordReadView)
+//        wordReadView.loadFile("/storage/emulated/0/download/WeiXin/wangyingda.pdf")
+//
+//        QbSdk.initX5Environment(this,object :PreInitCallback{
+//            override fun onCoreInitFinished() {
+//
+//            }
+//
+//            override fun onViewInitFinished(p0: Boolean) {
+//
+//
+//
+//            }
+//        })
+
+
+        //ViseLog.i(getExternalFilesDirs(Environment.DIRECTORY_DOCUMENTS))
 
 
 //        //创建默认线程池
@@ -130,6 +176,18 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    //判断文件是否存在
+    fun fileIsExists(strFile: String?): Boolean {
+        try {
+            val f = File(strFile)
+            if (!f.exists()) {
+                return false
+            }
+        } catch (e: Exception) {
+            return false
+        }
+        return true
+    }
 
 
     /**
@@ -194,6 +252,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }, 0, 1000)
+    }
+
+    override fun onCallBackAction(p0: Int?, p1: Any?, p2: Any?) {
+
     }
 
 }

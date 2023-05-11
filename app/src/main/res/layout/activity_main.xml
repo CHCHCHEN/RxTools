@@ -10,10 +10,19 @@
             type="com.yingda.rxdemo.MainViewModel" />
     </data>
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_head"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_head"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_one"

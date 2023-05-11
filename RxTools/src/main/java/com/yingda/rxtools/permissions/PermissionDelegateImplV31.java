@@ -4,21 +4,21 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.provider.Settings;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 /**
  * author: chen
- * data: 2022/8/18
+ * data: 2023/5/11
  * des: Android 12 权限委托实现
  */
-@RequiresApi(api = Build.VERSION_CODES.S)
+@RequiresApi(api = AndroidVersion.ANDROID_12)
 class PermissionDelegateImplV31 extends PermissionDelegateImplV30 {
 
     @Override
-    public boolean isGrantedPermission(Context context, String permission) {
+    public boolean isGrantedPermission(@NonNull Context context, @NonNull String permission) {
         // 检测闹钟权限
         if (PermissionUtils.equalsPermission(permission, Permission.SCHEDULE_EXACT_ALARM)) {
             return isGrantedAlarmPermission(context);
@@ -33,7 +33,7 @@ class PermissionDelegateImplV31 extends PermissionDelegateImplV30 {
     }
 
     @Override
-    public boolean isPermissionPermanentDenied(Activity activity, String permission) {
+    public boolean isPermissionPermanentDenied(@NonNull Activity activity, @NonNull String permission) {
         if (PermissionUtils.equalsPermission(permission, Permission.SCHEDULE_EXACT_ALARM)) {
             return false;
         }
@@ -45,7 +45,7 @@ class PermissionDelegateImplV31 extends PermissionDelegateImplV30 {
                     !PermissionUtils.shouldShowRequestPermissionRationale(activity, permission);
         }
 
-        if (activity.getApplicationInfo().targetSdkVersion >= AndroidVersion.Companion.getANDROID_12() &&
+        if (activity.getApplicationInfo().targetSdkVersion >= AndroidVersion.ANDROID_12 &&
                 PermissionUtils.equalsPermission(permission, Permission.ACCESS_BACKGROUND_LOCATION)) {
             if (!PermissionUtils.checkSelfPermission(activity, Permission.ACCESS_FINE_LOCATION) &&
                     !PermissionUtils.checkSelfPermission(activity, Permission.ACCESS_COARSE_LOCATION)) {
@@ -60,7 +60,7 @@ class PermissionDelegateImplV31 extends PermissionDelegateImplV30 {
     }
 
     @Override
-    public Intent getPermissionIntent(Context context, String permission) {
+    public Intent getPermissionIntent(@NonNull Context context, @NonNull String permission) {
         if (PermissionUtils.equalsPermission(permission, Permission.SCHEDULE_EXACT_ALARM)) {
             return getAlarmPermissionIntent(context);
         }
@@ -71,14 +71,14 @@ class PermissionDelegateImplV31 extends PermissionDelegateImplV30 {
     /**
      * 是否有闹钟权限
      */
-    private static boolean isGrantedAlarmPermission(Context context) {
+    private static boolean isGrantedAlarmPermission(@NonNull Context context) {
         return context.getSystemService(AlarmManager.class).canScheduleExactAlarms();
     }
 
     /**
      * 获取闹钟权限设置界面意图
      */
-    private static Intent getAlarmPermissionIntent(Context context) {
+    private static Intent getAlarmPermissionIntent(@NonNull Context context) {
         Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
         intent.setData(PermissionUtils.getPackageNameUri(context));
         if (!PermissionUtils.areActivityIntent(context, intent)) {

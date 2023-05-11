@@ -25,13 +25,13 @@ class X5Util(context: Context, listener: LocalInstallListener) {
     /**
      * 内核版本号
      */
-    private val CORE_VERSION = 46247
-//    private val CORE_VERSION = 46011
+//    private val CORE_VERSION = 46247
+    private val CORE_VERSION = 46011
 
     /**
      * 内核文件名称
      */
-    private val CORE_NAME_arm64_v8a = "tbs_core_046247_20230317115214_nolog_fs_obfs_arm64-v8a_release.tbs"
+    private val CORE_NAME_arm64_v8a = "tbs_046011.tbs"
     private val CORE_NAME_armeabi_v7a = "tbs_core_046141_20220915165042_nolog_fs_obfs_arm64-v8a_release.tbs"
     private val CORE_NAME_armeabi = "tbs_core_046141_20220915165042_nolog_fs_obfs_arm64-v8a_release.tbs"
 

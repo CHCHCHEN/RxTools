@@ -32,6 +32,8 @@ class BaseApplication : Application() {
         super.onCreate()
         app = this@BaseApplication
 
+
+
         //初始化viewModel
         startKoin {
             AndroidLogger(Level.DEBUG)

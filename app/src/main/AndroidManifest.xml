@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
+
     <application
         android:allowBackup="true"
         android:requestLegacyExternalStorage="true"
@@ -40,6 +41,17 @@
         <meta-data
             android:name="ScopedStorage"
             android:value="true" />
+
+        <provider
+            android:name="com.tencent.smtt.utils.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/x5webview_file_paths" />
+        </provider>
+
     </application>
 
 </manifest>

@@ -45,6 +45,7 @@ android {
 }
 
 dependencies {
+    compileOnly 'com.android.support:support-fragment:24.2.0'
 
     compileOnly 'androidx.core:core-ktx:1.7.0'
     compileOnly 'androidx.appcompat:appcompat:1.2.0'
