@@ -13,11 +13,7 @@ import androidx.viewbinding.ViewBinding
 import com.yingda.rxtools.binding.databind.*
 import com.yingda.rxtools.binding.viewbind.*
 
-/**
- * author: chen
- * data: 2021/9/8
- * des: 
-*/
+
 inline fun <reified T : ViewDataBinding> Fragment.databind() =
     FragmentDataBinding<T>(T::class.java, this)
 
@@ -68,19 +64,20 @@ inline fun <reified T : ViewDataBinding> RecyclerView.ViewHolder.databind(noinli
 
 inline fun <reified T : ViewBinding> ViewGroup.databind(@LayoutRes resId: Int) =
     ViewGroupDataBinding(
-        T::class.java,
-        resId,
-        LayoutInflater.from(getContext())
+        classes = T::class.java,
+        resId = resId,
+        inflater = LayoutInflater.from(getContext())
     )
 
 inline fun <reified T : ViewBinding> ViewGroup.databind(
     @LayoutRes resId: Int,
     noinline block: (T.() -> Unit)
 ) = ViewGroupDataBinding(
-    T::class.java,
-    resId,
-    LayoutInflater.from(getContext()),
-    block
+    classes = T::class.java,
+    resId = resId,
+    inflater = LayoutInflater.from(getContext()),
+    viewGroup = this,
+    block = block
 )
 
 inline fun <reified T : ViewBinding> Activity.viewbind() =
@@ -105,13 +102,13 @@ inline fun <reified T : ViewBinding> RecyclerView.ViewHolder.viewbind() =
     ViewHolderViewBinding(T::class.java)
 
 inline fun <reified T : ViewBinding> ViewGroup.viewbind() = ViewGroupViewBinding(
-    T::class.java,
-    LayoutInflater.from(getContext())
+    classes = T::class.java,
+    inflater = LayoutInflater.from(getContext())
 )
 
 inline fun <reified T : ViewBinding> ViewGroup.viewbind(viewGroup: ViewGroup) =
     ViewGroupViewBinding(
-        T::class.java,
-        LayoutInflater.from(getContext()),
-        viewGroup
+        classes = T::class.java,
+        inflater = LayoutInflater.from(getContext()),
+        viewGroup = viewGroup
     )

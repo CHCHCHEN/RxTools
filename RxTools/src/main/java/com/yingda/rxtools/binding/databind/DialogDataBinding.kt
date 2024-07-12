@@ -9,11 +9,6 @@ import androidx.lifecycle.Lifecycle
 import com.yingda.rxtools.binding.base.DialogDelegate
 import kotlin.reflect.KProperty
 
-/**
- * author: chen
- * data: 2021/9/8
- * des:
- */
 class DialogDataBinding<T : ViewDataBinding>(
     val classes: Class<T>,
     val inflater: LayoutInflater,

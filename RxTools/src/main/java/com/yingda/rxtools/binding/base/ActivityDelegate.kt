@@ -3,26 +3,19 @@ package com.yingda.rxtools.binding.base
 import android.app.Activity
 import android.os.Build
 import androidx.activity.ComponentActivity
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
-
-import com.yingda.rxtools.binding.ext.LifecycleFragment
-import com.yingda.rxtools.binding.ext.observerWhenDestroyed
+import com.yingda.rxtools.binding.observerWhenDestroyed
+import com.yingda.rxtools.binding.registerLifecycleBelowQ
 import kotlin.properties.ReadOnlyProperty
 
-/**
- * author: chen
- * data: 2021/9/8
- * des:
- */
+
 abstract class ActivityDelegate<T : ViewBinding>(
     activity: Activity
 ) : ReadOnlyProperty<Activity, T> {
-    
+
     protected var viewBinding: T? = null
     private val LIFECYCLE_FRAGMENT_TAG = "com.yingda.rxtools.binding.lifecycle_fragment"
-    
+
     init {
         when (activity) {
             is ComponentActivity -> activity.lifecycle.observerWhenDestroyed { destroyed() }
@@ -32,26 +25,15 @@ abstract class ActivityDelegate<T : ViewBinding>(
                 }
             }
         }
-        
+
     }
-    
-    /**
-     * 当继承 Activity 且 Build.VERSION.SDK_INT < Build.VERSION_CODES.Q 以下的时候，
-     * 会添加一个 空白的 Fragment, 当生命周期处于 onDestroy 时销毁数据
-     */
+
     fun addLifecycleFragment(activity: Activity) {
-        if (activity is FragmentActivity || activity is AppCompatActivity) return
-        
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) return
-        
-        val fragmentManager = activity.fragmentManager
-        if (fragmentManager.findFragmentByTag(LIFECYCLE_FRAGMENT_TAG) == null) {
-            val transaction = fragmentManager.beginTransaction()
-            transaction.add(LifecycleFragment { destroyed() }, LIFECYCLE_FRAGMENT_TAG).commit()
-            fragmentManager.executePendingTransactions()
+        activity.registerLifecycleBelowQ {
+            destroyed()
         }
     }
-    
+
     private fun destroyed() {
         viewBinding = null
     }

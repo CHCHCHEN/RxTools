@@ -2,15 +2,11 @@ package com.yingda.rxtools.binding.viewbind
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.yingda.rxtools.binding.ext.bindMethod
+import com.yingda.rxtools.binding.bindMethod
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-/**
- * author: chen
- * data: 2021/9/8
- * des: 
-*/
+
 class ViewHolderViewBinding<T : ViewBinding>(
     classes: Class<T>
 ) : ReadOnlyProperty<RecyclerView.ViewHolder, T> {

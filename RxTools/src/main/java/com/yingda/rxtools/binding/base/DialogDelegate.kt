@@ -3,7 +3,7 @@ package com.yingda.rxtools.binding.base
 import android.app.Dialog
 import androidx.lifecycle.Lifecycle
 import androidx.viewbinding.ViewBinding
-import com.yingda.rxtools.binding.ext.observerWhenDestroyed
+import com.yingda.rxtools.binding.observerWhenDestroyed
 import kotlin.properties.ReadOnlyProperty
 
 abstract class DialogDelegate<T : ViewBinding>(

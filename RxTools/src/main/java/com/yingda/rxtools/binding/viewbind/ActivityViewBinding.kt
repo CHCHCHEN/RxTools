@@ -3,14 +3,9 @@ package com.yingda.rxtools.binding.viewbind
 import android.app.Activity
 import androidx.viewbinding.ViewBinding
 import com.yingda.rxtools.binding.base.ActivityDelegate
-import com.yingda.rxtools.binding.ext.inflateMethod
+import com.yingda.rxtools.binding.inflateMethod
 import kotlin.reflect.KProperty
 
-/**
- * author: chen
- * data: 2021/9/8
- * des: 
-*/
 
 class ActivityViewBinding<T : ViewBinding>(
     classes: Class<T>,

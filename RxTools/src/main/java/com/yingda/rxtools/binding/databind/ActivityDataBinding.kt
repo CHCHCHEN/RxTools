@@ -8,11 +8,6 @@ import androidx.databinding.ViewDataBinding
 import com.yingda.rxtools.binding.base.ActivityDelegate
 import kotlin.reflect.KProperty
 
-/**
- * author: chen
- * data: 2021/9/8
- * des: 
-*/
 
 class ActivityDataBinding<T : ViewDataBinding>(
     val activity: Activity,

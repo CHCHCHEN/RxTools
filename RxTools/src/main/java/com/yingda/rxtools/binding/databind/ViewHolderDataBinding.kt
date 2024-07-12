@@ -6,11 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-/**
- * author: chen
- * data: 2021/9/8
- * des: 
-*/
 class ViewHolderDataBinding<T : ViewDataBinding>(
     classes: Class<T>,
     private var block: (T.() -> Unit)? = null

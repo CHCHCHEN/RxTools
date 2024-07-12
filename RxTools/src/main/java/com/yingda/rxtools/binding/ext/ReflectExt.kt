@@ -1,14 +1,9 @@
-package com.yingda.rxtools.binding.ext
+package com.yingda.rxtools.binding
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-/**
- * author: chen
- * data: 2021/9/8
- * des:
-*/
 
 const val INFLATE_NAME = "inflate"
 const val BIND_NAME = "bind"
