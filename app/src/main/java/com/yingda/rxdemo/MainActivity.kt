@@ -1,13 +1,18 @@
 package com.yingda.rxdemo
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.webkit.WebSettings
 import androidx.appcompat.app.AppCompatActivity
 import com.tencent.smtt.sdk.QbSdk
 import com.tencent.smtt.sdk.TbsReaderView.ReaderCallback
 import com.yingda.rxdemo.databinding.ActivityMainBinding
+import com.yingda.rxtools.appupdate.listener.OnButtonClickListener
+import com.yingda.rxtools.appupdate.listener.OnDownloadListenerAdapter
+import com.yingda.rxtools.appupdate.manager.DownloadManager
 import com.yingda.rxtools.binding.viewbind
 import com.yingda.rxtools.gsls.GT
 import com.yingda.rxtools.log.ViseLog
@@ -34,6 +39,11 @@ class MainActivity : AppCompatActivity(), ReaderCallback {
     private var second = 0
 
     private lateinit var x5Util: X5Util
+
+
+    private val url = "https://downv6.qq.com/qqweb/QQ_1/android_apk/Android_9.0.81_64.apk"
+    private val apkName = "appupdate.apk"
+    private var manager: DownloadManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -173,6 +183,47 @@ class MainActivity : AppCompatActivity(), ReaderCallback {
 //        }
 
 
+        manager = DownloadManager.Builder(this).run {
+            apkUrl(url)
+            apkName(apkName)
+            smallIcon(R.mipmap.ic_launcher)
+            showNewerToast(true)
+            apkVersionCode(2)
+            apkVersionName("v4.2.1")
+            apkSize("7.7MB")
+            apkDescription("1.支持Android4.1及以上版本\\n2.支持自定义下载过程\\")
+            enableLog(true)
+            jumpInstallPage(true)
+            dialogButtonTextColor(Color.WHITE)
+            showNotification(true)
+            showBgdToast(false)
+            forcedUpgrade(false)
+            onDownloadListener(listenerAdapter)
+//            apkMD5("DC501F04BBAA458C9DC33008EFED5E7F")
+//            httpManager()
+//            dialogImage(R.drawable.ic_dialog)
+//            dialogButtonColor(Color.parseColor("#E743DA"))
+//            dialogProgressBarColor(Color.parseColor("#E743DA"))
+//            notificationChannel()
+//            notifyId(1011)
+            onButtonClickListener(object :OnButtonClickListener{
+                override fun onButtonClick(id: Int) {
+
+                }
+            })
+            build()
+        }
+        manager?.download()
+
+
+
+    }
+
+    private val listenerAdapter: OnDownloadListenerAdapter = object : OnDownloadListenerAdapter() {
+
+        override fun downloading(max: Int, progress: Int) {
+            val curr = (progress / max.toDouble() * 100.0).toInt()
+        }
     }
 
 

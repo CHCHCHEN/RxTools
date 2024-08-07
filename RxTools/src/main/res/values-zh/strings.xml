@@ -15,4 +15,5 @@
     <string name="brvah_load_failed">加载失败，请点我重试</string>
     <string name="brvah_load_end">没有更多数据</string>
     <string name="brvah_load_complete">点击加载更多</string>
+
 </resources>
