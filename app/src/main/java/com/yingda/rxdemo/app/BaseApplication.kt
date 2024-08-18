@@ -11,12 +11,15 @@ import com.yingda.rxtools.http.cache.converter.SerializableDiskConverter
 import com.yingda.rxtools.http.model.HttpHeaders
 import com.yingda.rxtools.log.ViseLog
 import com.yingda.rxtools.log.inner.LogcatTree
+import com.yingda.rxtools.oaid.RxDeviceIdentifier
+import com.yingda.rxtools.oaid.IRegisterCallback
 import com.yingda.rxtools.wechat.WeChatHelper.Companion.getInstance
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.logger.AndroidLogger
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
+import java.lang.Exception
 import java.net.Proxy
 
 
@@ -84,6 +87,15 @@ class BaseApplication : Application() {
 
         //初始化微信SDK
         getInstance(this).init(BuildConfig.DEBUG)
+
+
+        //OAID
+        RxDeviceIdentifier.register(this, false, object : IRegisterCallback {
+            override fun onComplete(clientId: String?, error: Exception?) {
+                ViseLog.d("OAID:$clientId-$error")
+            }
+        })
+
         
     }
 

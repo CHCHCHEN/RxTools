@@ -15,6 +15,8 @@ import com.yingda.rxtools.appupdate.manager.DownloadManager
 import com.yingda.rxtools.binding.viewbind
 import com.yingda.rxtools.gsls.GT
 import com.yingda.rxtools.log.ViseLog
+import com.yingda.rxtools.oaid.RxDeviceID
+import com.yingda.rxtools.oaid.IGetter
 import com.yingda.rxtools.permissions.OnPermissionCallback
 import com.yingda.rxtools.permissions.Permission
 import com.yingda.rxtools.permissions.RxPermissions
@@ -215,7 +217,19 @@ class MainActivity : AppCompatActivity(), ReaderCallback {
         manager?.download()
 
 
+        // 获取OAID/AAID，异步回调
+        RxDeviceID.getOAID(this, object : IGetter {
+            override fun onOAIDGetComplete(result: String?) {
+                // 不同厂商的OAID/AAID格式是不一样的，可进行MD5、SHA1之类的哈希运算统一
+                ViseLog.i("OAID/AAID:$result")
+            }
 
+            override fun onOAIDGetError(error: java.lang.Exception?) {
+                // 获取OAID/AAID失败
+                ViseLog.e("获取OAID/AAID失败:${error.toString()}")
+            }
+
+        })
     }
 
     private val listenerAdapter: OnDownloadListenerAdapter = object : OnDownloadListenerAdapter() {

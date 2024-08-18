@@ -4,7 +4,7 @@ plugins {
 }
 
 ext.koin_version = "2.2.1"
-ext.kotlin_version = '1.4.10'
+ext.kotlin_version = '1.6.10'
 
 android {
     compileSdk 33
@@ -31,7 +31,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -96,4 +96,7 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
+
+    implementation "com.huawei.hms:ads-identifier:3.4.62.300"
+    implementation 'com.hihonor.mcs:ads-identifier:1.0.2.301'
 }
