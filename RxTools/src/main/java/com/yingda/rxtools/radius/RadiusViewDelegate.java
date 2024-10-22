@@ -1,4 +1,4 @@
-package com.mengdian.game001.view;
+package com.yingda.rxtools.radius;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.mengdian.game001.R;
+import com.yingda.rxtools.R;
 
 /**
  * Created: AriesHoo on 2017-02-10 14:25

@@ -1,12 +1,12 @@
-package com.mengdian.game001.utils;
+package com.yingda.rxtools.utils;
 
 
 import android.text.TextUtils;
 
-import java.util.List;
-
 import com.alibaba.fastjson.JSON;
 import com.google.gson.JsonParser;
+
+import java.util.List;
 
 public class JsonUtil {
 
