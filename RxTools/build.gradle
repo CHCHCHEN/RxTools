@@ -97,8 +97,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
 
-    implementation "com.huawei.hms:ads-identifier:3.4.62.300"
-    implementation 'com.hihonor.mcs:ads-identifier:1.0.2.301'
+    compileOnly "com.huawei.hms:ads-identifier:3.4.62.300"
+    compileOnly 'com.hihonor.mcs:ads-identifier:1.0.2.301'
 
     compileOnly "com.alibaba:fastjson:1.2.78"
 }
