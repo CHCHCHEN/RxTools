@@ -5,33 +5,17 @@ import java.math.BigDecimal;
 /**
  * author: chen
  * data: 2024/8/11
- * des:
+ * des: 运算工具
  */
 public class BigDecimalUtils {
-
-
-    /**
-     * 如果小数部分为 0，返回整数形式，否则返回原值
-     */
-    public static BigDecimal stripDecimalIfZero(BigDecimal value) {
-        if (value == null) return null;
-
-        // 方法1：使用 stripTrailingZeros
-        BigDecimal stripped = value.stripTrailingZeros();
-
-        // 检查是否还有小数位
-        if (stripped.scale() <= 0) {
-            return stripped;
-        }
-        return value;
-    }
 
     /**
      * 获取字符串表示，小数部分为 0 时显示整数
      */
-    public static String toStringWithoutTrailingZeros(BigDecimal value) {
-        if (value == null) return "";
-        return value.stripTrailingZeros().toPlainString();
+    public static String toZeros(String value) {
+        if (value == null || value.isEmpty())
+            return "";
+        return new BigDecimal(value).stripTrailingZeros().toPlainString();
     }
 
 
